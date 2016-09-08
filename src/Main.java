@@ -12,6 +12,9 @@ import java.util.Collections;
 public class Main {
     public static void main(String[] args) throws PropertyListFormatException, ParserConfigurationException, SAXException, ParseException, IOException {
         Deck instance = new Deck();
+        Player newPlayer = new Player("buthead", instance.deckArray.get(1), Boolean.TRUE);
+
+        System.out.println(newPlayer.getPlayer());
 
 
 
