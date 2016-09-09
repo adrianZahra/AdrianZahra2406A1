@@ -17,13 +17,11 @@ public class Main {
         System.out.println(newPlayer.getPlayer());
 
 
-
         //instance.print();
         //System.out.print(instance.deckArray.get(0).toString());
         //System.out.print(instance.deckArray.size());
         //Collections.shuffle(instance.deckArray);
         //instance.print();
-
 
 
     }

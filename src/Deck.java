@@ -67,8 +67,8 @@ public class Deck {
         }
     }
 
-    void print(){
-        for (Card i: deckArray) {
+    void print() {
+        for (Card i : deckArray) {
             System.out.println(i.toString());
         }
     }
