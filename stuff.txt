@@ -1,0 +1,8 @@
+	//Deck instance = new Deck();
+        //SetPlayers playerInstance = new SetPlayers();
+        //instance.print();
+        //playerInstance.printPlayer();
+        //System.out.println(newPlayer.getPlayer());
+        //System.out.print(instance.deckArray.get(0).toString());
+        //System.out.print(instance.deckArray.size());
+        //Collections.shuffle(instance.deckArray);

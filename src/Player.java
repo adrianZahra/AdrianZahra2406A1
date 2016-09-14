@@ -10,14 +10,12 @@ import java.util.ArrayList;
  * Created by pccc on 9/6/2016.
  */
 
-
-
-class Player {
+public class Player {
     String playerName;
-    Card playerHand;
+    ArrayList playerHand;
     Boolean inOut;
 
-    Player(String in_playerName, Card in_playerHand, Boolean in_inOut){
+    Player(String in_playerName, ArrayList in_playerHand, Boolean in_inOut){
         this.playerName = in_playerName;
         this.playerHand = in_playerHand;
         this.inOut = in_inOut;
