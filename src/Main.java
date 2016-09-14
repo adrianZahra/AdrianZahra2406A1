@@ -19,7 +19,7 @@ public class Main {
         //SetPlayers playerInstance = new SetPlayers();
         Scanner input = new Scanner(System.in);
         ArrayList<Player> playerArray = new ArrayList();
-        //ArrayList<Card> cardPile = new ArrayList();
+        ArrayList<Card> cardPile = new ArrayList();
 
         String playerName;
         System.out.println("Enter a players name --> ");
@@ -40,9 +40,13 @@ public class Main {
 
         drawCard(deckInstance, playerArray.get(0));
 
+        //System.out.println(playerArray.get(0).getPlayer());
+
+        placeCard(playerArray.get(0), cardPile);
+
         System.out.println(playerArray.get(0).getPlayer());
 
-        placeCard(playerArray.get(0));
+        placeCard(playerArray.get(0), cardPile);
 
         System.out.println(playerArray.get(0).getPlayer());
 
@@ -52,14 +56,21 @@ public class Main {
     }
 
 
-    static Object placeCard(Player playerPlace){
+    static Object placeCard(Player playerPlace, ArrayList pilePlace){
         int cardHandIndex;
         Scanner input = new Scanner(System.in);
         System.out.println("type the number of the card you wish to place --> ");
         cardHandIndex = input.nextInt();
         System.out.println(playerPlace.playerHand.get(cardHandIndex) + " was removed from hand");
+        pileCreator(playerPlace, pilePlace, cardHandIndex);
         playerPlace.playerHand.remove(cardHandIndex);
         return playerPlace;
+    }
+
+    static Object pileCreator(Player playerPlace, ArrayList pilePlace, int indexPlace){
+        pilePlace.add(playerPlace.playerHand.get(indexPlace));
+        System.out.println("<<BOTTOM OF THE PILE>> \n " + pilePlace.toString());
+        return pilePlace;
     }
 
 
