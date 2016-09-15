@@ -12,16 +12,22 @@ import java.util.ArrayList;
 
 public class Player {
     String playerName;
-    ArrayList playerHand;
+    ArrayList<Card> playerHand;
     Boolean inOut;
 
-    Player(String in_playerName, ArrayList in_playerHand, Boolean in_inOut){
+    Player(String in_playerName){
         this.playerName = in_playerName;
-        this.playerHand = in_playerHand;
-        this.inOut = in_inOut;
+        this.playerHand = new ArrayList<Card>();
+        this.inOut = true;
     }
 
     public String getPlayer(){
-        return (this.playerName + " " + this.playerHand + " " + this.inOut);
+        String hand = "";
+
+        for(Card i : playerHand){
+            hand += i+ " ";
+        }
+
+        return (this.playerName + " " + hand + " " + this.inOut);
     }
 }

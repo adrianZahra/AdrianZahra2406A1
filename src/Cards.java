@@ -54,7 +54,7 @@ class MineralCard extends Card {
 
     @Override
     public String toString() {
-        return ("This element is " + this.title + "\n its chemisty is " + this.chemistry + "\n its classification is " + this.classification + "\n its crystal system is " + this.crystal_system + "\n its occourence is " + this.occurrence + "\n its hardness is " + this.hardness + "\n its specific gravity is " + this.specific_gravity + "\n its cleavage is " + this.cleavage + "\n its cristal abundance is " + this.crustal_abundance + "\n its economic value is " + this.economic_value + "\n");
+        return ("This element is " + this.title /*+ "\n its chemisty is " + this.chemistry + "\n its classification is " + this.classification + "\n its crystal system is " + this.crystal_system + "\n its occourence is " + this.occurrence + "\n its hardness is " + this.hardness + "\n its specific gravity is " + this.specific_gravity + "\n its cleavage is " + this.cleavage + "\n its cristal abundance is " + this.crustal_abundance + "\n its economic value is " + this.economic_value*/ + "\n");
     }
 
 }

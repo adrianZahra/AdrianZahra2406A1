@@ -14,7 +14,7 @@ import java.util.ArrayList;
  * Created by pccc on 8/27/2016.
  */
 public class Deck {
-    public ArrayList<Card> deckArray = new ArrayList();
+    public static ArrayList<Card> deckArray = new ArrayList();
 
     Deck() throws ParserConfigurationException, ParseException, SAXException, PropertyListFormatException, IOException {
 

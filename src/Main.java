@@ -13,42 +13,59 @@ import java.util.Scanner;
  * Created by pccc on 8/27/2016.
  */
 public class Main {
+    static Deck deckInstance;
+    static ArrayList<Player> playerArray;
+    static ArrayList<Card> cardPile;
 
     public static void main(String[] args) throws PropertyListFormatException, ParserConfigurationException, SAXException, ParseException, IOException {
-        Deck deckInstance = new Deck();
-        //SetPlayers playerInstance = new SetPlayers();
+        deckInstance = new Deck();
+        playerArray = new ArrayList();
+        cardPile = new ArrayList();
+
         Scanner input = new Scanner(System.in);
-        ArrayList<Player> playerArray = new ArrayList();
-        ArrayList<Card> cardPile = new ArrayList();
+        Integer playerArrayIndex = 0;
 
-        String playerName;
-        System.out.println("Enter a players name --> ");
-        playerName = input.nextLine();
-        //Collections.shuffle(instance.deckArray);
-        ArrayList playersHand = new ArrayList();
-        while (playersHand.size() < 2) {
-            playersHand.add(deckInstance.deckArray.get(0));
-            deckInstance.deckArray.remove(0);
+
+
+        do {
+            System.out.println("Enter the number of players here --> ");
+            playerArrayIndex = input.nextInt();
+        } while (playerArrayIndex > 5 || playerArrayIndex < 3);
+        input.nextLine();
+
+
+        for (int x = 0; x < playerArrayIndex; x = x + 1){
+            String playerName;
+            System.out.println("Enter a players name --> ");
+            playerName = input.nextLine();
+            Player nextPlayer = new Player(playerName);
+
+            //Collections.shuffle(instance.deckArray);
+            while (nextPlayer.playerHand.size() < 2) {
+                nextPlayer.playerHand.add(deckInstance.deckArray.remove(0));
+            }
+            playerArray.add(nextPlayer);
         }
-        playerArray.add(new Player(playerName, playersHand, Boolean.TRUE));
 
 
-        //for (Player j : playerArray)
-        //    System.out.println(j.getPlayer());
+
+
+        for (Player j : playerArray)
+            System.out.println(j.getPlayer());
+
+        //System.out.println(playerArray.get(0).getPlayer());
+        //System.out.println(playerArray.get(0));
+
+       // drawCard(deckInstance, playerArray.get(0));
+       // System.out.println(playerArray.get(0).getPlayer());
+
+        //placeCard(playerArray.get(0), cardPile);
 
         //System.out.println(playerArray.get(0).getPlayer());
 
-        drawCard(deckInstance, playerArray.get(0));
+        //placeCard(playerArray.get(0), cardPile);
 
         //System.out.println(playerArray.get(0).getPlayer());
-
-        placeCard(playerArray.get(0), cardPile);
-
-        System.out.println(playerArray.get(0).getPlayer());
-
-        placeCard(playerArray.get(0), cardPile);
-
-        System.out.println(playerArray.get(0).getPlayer());
 
         //deckInstance.print();
 
@@ -56,14 +73,13 @@ public class Main {
     }
 
 
-    static Object placeCard(Player playerPlace, ArrayList pilePlace){
+    static Object placeCard(Player playerPlace){
         int cardHandIndex;
         Scanner input = new Scanner(System.in);
         System.out.println("type the number of the card you wish to place --> ");
         cardHandIndex = input.nextInt();
-        System.out.println(playerPlace.playerHand.get(cardHandIndex) + " was removed from hand");
-        pileCreator(playerPlace, pilePlace, cardHandIndex);
-        playerPlace.playerHand.remove(cardHandIndex);
+        pileCreator(playerPlace, cardPile, cardHandIndex);
+        System.out.println(playerPlace.playerHand.remove(cardHandIndex) + " was removed from hand");
         return playerPlace;
     }
 
@@ -72,7 +88,6 @@ public class Main {
         System.out.println("<<BOTTOM OF THE PILE>> \n " + pilePlace.toString());
         return pilePlace;
     }
-
 
     static Object drawCard(Deck deckPlace, Player playerPlace){
         playerPlace.playerHand.add(deckPlace.deckArray.get(0));
