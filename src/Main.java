@@ -26,7 +26,6 @@ public class Main {
         Integer playerArrayIndex = 0;
 
 
-
         do {
             System.out.println("Enter the number of players here --> ");
             playerArrayIndex = input.nextInt();
@@ -34,12 +33,11 @@ public class Main {
         input.nextLine();
 
 
-        for (int x = 0; x < playerArrayIndex; x = x + 1){
+        for (int x = 0; x < playerArrayIndex; x = x + 1) {
             String playerName;
             System.out.println("Enter a players name --> ");
             playerName = input.nextLine();
             Player nextPlayer = new Player(playerName);
-
             //Collections.shuffle(instance.deckArray);
             while (nextPlayer.playerHand.size() < 2) {
                 nextPlayer.playerHand.add(deckInstance.deckArray.remove(0));
@@ -48,53 +46,75 @@ public class Main {
         }
 
 
+        while (playerArray.size() > 1) {
+            for (int i = 0; i < playerArray.size(); i++) {
+                System.out.println("Enter an option for player: " + playerArray.get(i).playerName + " \n play \n pass");
+                String gameOption = input.nextLine();
+                if (gameOption.equals("play")) {
+                    placeCard(playerArray.get(i));
+                    System.out.println(playerArray.get(i).getPlayer());
+                } else if (gameOption.equals("pass")) {
+                    drawCard(playerArray.get(i));
+                    System.out.println(playerArray.get(i).getPlayer());
+                } else pileCreator();
+            }
 
 
-        for (Player j : playerArray)
-            System.out.println(j.getPlayer());
+            //for (Player j : playerArray)
+            //    System.out.println(j.getPlayer());
 
-        //System.out.println(playerArray.get(0).getPlayer());
-        //System.out.println(playerArray.get(0));
+            //System.out.println(playerArray.get(0).getPlayer());
+            //System.out.println(playerArray.get(0));
 
-       // drawCard(deckInstance, playerArray.get(0));
-       // System.out.println(playerArray.get(0).getPlayer());
+        /*
+        drawCard(playerArray.get(0));
+        System.out.println(playerArray.get(0).getPlayer());
+        drawCard(playerArray.get(0));
+        System.out.println(playerArray.get(0).getPlayer());
+        drawCard(playerArray.get(1));
+        System.out.println(playerArray.get(1).getPlayer());
+        drawCard(playerArray.get(1));
+        System.out.println(playerArray.get(1).getPlayer());
+        drawCard(playerArray.get(2));
+        System.out.println(playerArray.get(2).getPlayer());
+        drawCard(playerArray.get(2));
+        System.out.println(playerArray.get(2).getPlayer());
+        */
+            //placeCard(playerArray.get(0));
 
-        //placeCard(playerArray.get(0), cardPile);
+            //System.out.println(playerArray.get(0).getPlayer());
 
-        //System.out.println(playerArray.get(0).getPlayer());
+            //placeCard(playerArray.get(0));
 
-        //placeCard(playerArray.get(0), cardPile);
+            //System.out.println(playerArray.get(0).getPlayer());
 
-        //System.out.println(playerArray.get(0).getPlayer());
+            //deckInstance.print();
 
-        //deckInstance.print();
+            //pileCreator();
 
 
+        }
     }
 
 
-    static Object placeCard(Player playerPlace){
+    static void placeCard(Player playerPlace) {
         int cardHandIndex;
         Scanner input = new Scanner(System.in);
         System.out.println("type the number of the card you wish to place --> ");
         cardHandIndex = input.nextInt();
-        pileCreator(playerPlace, cardPile, cardHandIndex);
+        cardPile.add(playerPlace.playerHand.get(cardHandIndex));
         System.out.println(playerPlace.playerHand.remove(cardHandIndex) + " was removed from hand");
-        return playerPlace;
     }
 
-    static Object pileCreator(Player playerPlace, ArrayList pilePlace, int indexPlace){
-        pilePlace.add(playerPlace.playerHand.get(indexPlace));
-        System.out.println("<<BOTTOM OF THE PILE>> \n " + pilePlace.toString());
-        return pilePlace;
+    static void pileCreator() {
+        System.out.println("<<BOTTOM OF THE PILE>> \n " + cardPile.toString());
     }
 
-    static Object drawCard(Deck deckPlace, Player playerPlace){
-        playerPlace.playerHand.add(deckPlace.deckArray.get(0));
-        deckPlace.deckArray.remove(0);
-
-        return deckPlace;
+    static void drawCard(Player playerPlace) {
+        playerPlace.playerHand.add(deckInstance.deckArray.get(0));
+        deckInstance.deckArray.remove(0);
     }
+
 }
 
 //SetPlayer(deckInstance);
