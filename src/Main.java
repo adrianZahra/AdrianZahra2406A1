@@ -24,6 +24,7 @@ public class Main {
 
         Scanner input = new Scanner(System.in);
         Integer playerArrayIndex = 0;
+        String roundType = " ";
 
 
         do {
@@ -48,98 +49,113 @@ public class Main {
 
         while (playerArray.size() > 1) {
             for (int i = 0; i < playerArray.size(); i++) {
+                roundType = chooseType(roundType);
+                System.out.println("The type for the round is --> " + roundType);
                 System.out.println("Enter an option for player: " + playerArray.get(i).playerName + " \n play \n pass");
                 String gameOption = input.nextLine();
                 if (gameOption.equals("play")) {
-                    placeCard(playerArray.get(i));
+                    deckInstance.print();
+                    //placeCard(playerArray.get(i));
                     System.out.println(playerArray.get(i).getPlayer());
                 } else if (gameOption.equals("pass")) {
                     drawCard(playerArray.get(i));
                     System.out.println(playerArray.get(i).getPlayer());
                 } else pileCreator();
             }
-
-
-            //for (Player j : playerArray)
-            //    System.out.println(j.getPlayer());
-
-            //System.out.println(playerArray.get(0).getPlayer());
-            //System.out.println(playerArray.get(0));
-
-        /*
-        drawCard(playerArray.get(0));
-        System.out.println(playerArray.get(0).getPlayer());
-        drawCard(playerArray.get(0));
-        System.out.println(playerArray.get(0).getPlayer());
-        drawCard(playerArray.get(1));
-        System.out.println(playerArray.get(1).getPlayer());
-        drawCard(playerArray.get(1));
-        System.out.println(playerArray.get(1).getPlayer());
-        drawCard(playerArray.get(2));
-        System.out.println(playerArray.get(2).getPlayer());
-        drawCard(playerArray.get(2));
-        System.out.println(playerArray.get(2).getPlayer());
-        */
-            //placeCard(playerArray.get(0));
-
-            //System.out.println(playerArray.get(0).getPlayer());
-
-            //placeCard(playerArray.get(0));
-
-            //System.out.println(playerArray.get(0).getPlayer());
-
-            //deckInstance.print();
-
-            //pileCreator();
-
-
         }
     }
 
-    static int getCleavage(String cleavValue){
+
+    static void cardCompare() {
+
+    }
+
+    static String chooseType(String typeHolder) {
+        Scanner input = new Scanner(System.in);
+        do {
+            System.out.println("Enter the type for the round --> \n Hardness \n specific gravity \n Cleavage \n crustal abundance \n economic value ");
+            typeHolder = input.nextLine();
+        }
+        while (!typeHolder.equals("hardness") && !typeHolder.equals("specific gravity") && !typeHolder.equals("cleavage") && !typeHolder.equals("crustal abundance") && !typeHolder.equals("economic value"));
+
+        return typeHolder;
+    }
+
+
+    static int getCleavage(String cleavValue) {
         int cleavValueInt = 0;
-        switch (cleavValue){
-            case "none":return 1;
-            case "poor/none":return 2;
-            case "1 poor":return 3;
-            case "2 poor":return 4;
-            case "1 good":return 5;
-            case "1 good, 1 poor":return 6;
-            case "2 good":return 7;
-            case "3 good":return 8;
-            case "1 perfect":return 9;
-            case "1 perfect, 1 good":return 10;
-            case "1 perfect, 2 good":return 11;
-            case "2 perfect, 1 good":return 12;
-            case "3 perfect":return 13;
-            case "4 perfect":return 14;
-            case "6 perfect":return 15;
+        switch (cleavValue) {
+            case "none":
+                return 1;
+            case "poor/none":
+                return 2;
+            case "1 poor":
+                return 3;
+            case "2 poor":
+                return 4;
+            case "1 good":
+                return 5;
+            case "1 good, 1 poor":
+                return 6;
+            case "2 good":
+                return 7;
+            case "3 good":
+                return 8;
+            case "1 perfect":
+                return 9;
+            case "1 perfect, 1 good":
+                return 10;
+            case "1 perfect, 2 good":
+                return 11;
+            case "2 perfect, 1 good":
+                return 12;
+            case "3 perfect":
+                return 13;
+            case "4 perfect":
+                return 14;
+            case "6 perfect":
+                return 15;
 
-        }return cleavValueInt;
+        }
+        return cleavValueInt;
     }
 
-    static int getEconomicValue(String ecoValue){
-      int ecoValueInt = 0;
-        switch (ecoValue){
-            case "trivial":return 1;
-            case "low":return 2;
-            case "moderate":return 3;
-            case "high":return 4;
-            case "very high":return 5;
-            case "I'm rich":return 6;
-        }return ecoValueInt;
+    static int getEconomicValue(String ecoValue) {
+        int ecoValueInt = 0;
+        switch (ecoValue) {
+            case "trivial":
+                return 1;
+            case "low":
+                return 2;
+            case "moderate":
+                return 3;
+            case "high":
+                return 4;
+            case "very high":
+                return 5;
+            case "I'm rich":
+                return 6;
+        }
+        return ecoValueInt;
     }
 
-    static int getCrustalAbundance(String crustValue){
+    static int getCrustalAbundance(String crustValue) {
         int crustValueInt = 0;
-        switch (crustValue){
-            case "ultratrace":return 1;
-            case "trace":return 2;
-            case "low":return 3;
-            case "moderate":return 4;
-            case "high":return 5;
-            case "very high":return 6;
-        }return crustValueInt;
+        switch (crustValue) {
+            case "ultratrace":
+                return 1;
+            case "trace":
+                return 2;
+            case "low":
+                return 3;
+            case "moderate":
+                return 4;
+            case "high":
+                return 5;
+            case "very high":
+                return 6;
+        }
+        return crustValueInt;
 
     }
 
@@ -170,3 +186,36 @@ public class Main {
 //System.out.print(instance.deckArray.get(0).toString());
 //System.out.print(instance.deckArray.size());
 //Collections.shuffle(instance.deckArray);
+
+
+//for (Player j : playerArray)
+//    System.out.println(j.getPlayer());
+
+//System.out.println(playerArray.get(0).getPlayer());
+//System.out.println(playerArray.get(0));
+
+        /*
+        drawCard(playerArray.get(0));
+        System.out.println(playerArray.get(0).getPlayer());
+        drawCard(playerArray.get(0));
+        System.out.println(playerArray.get(0).getPlayer());
+        drawCard(playerArray.get(1));
+        System.out.println(playerArray.get(1).getPlayer());
+        drawCard(playerArray.get(1));
+        System.out.println(playerArray.get(1).getPlayer());
+        drawCard(playerArray.get(2));
+        System.out.println(playerArray.get(2).getPlayer());
+        drawCard(playerArray.get(2));
+        System.out.println(playerArray.get(2).getPlayer());
+        */
+//placeCard(playerArray.get(0));
+
+//System.out.println(playerArray.get(0).getPlayer());
+
+//placeCard(playerArray.get(0));
+
+//System.out.println(playerArray.get(0).getPlayer());
+
+//deckInstance.print();
+
+//pileCreator();
