@@ -1,3 +1,4 @@
+import com.dd.plist.NSString;
 import com.dd.plist.PropertyListFormatException;
 import org.xml.sax.SAXException;
 
@@ -48,14 +49,14 @@ public class Main {
 
 
         while (playerArray.size() > 1) {
+            roundType = chooseType(roundType);
+            System.out.println("The type for the round is --> " + roundType);
             for (int i = 0; i < playerArray.size(); i++) {
-                roundType = chooseType(roundType);
-                System.out.println("The type for the round is --> " + roundType);
                 System.out.println("Enter an option for player: " + playerArray.get(i).playerName + " \n play \n pass");
                 String gameOption = input.nextLine();
                 if (gameOption.equals("play")) {
-                    deckInstance.print();
-                    //placeCard(playerArray.get(i));
+                    cardCompare(roundType, 0, 0, 0);
+                    placeCard(playerArray.get(i));
                     System.out.println(playerArray.get(i).getPlayer());
                 } else if (gameOption.equals("pass")) {
                     drawCard(playerArray.get(i));
@@ -66,7 +67,22 @@ public class Main {
     }
 
 
-    static void cardCompare() {
+    static void cardCompare(String cardCompareType, int playerIndex, int handCardIndex, int pileCardPlace) {
+        if (cardCompareType.equals("hardness")) {
+            System.out.println("hardness");
+        } else if (cardCompareType.equals("specific gravity")) {
+            System.out.println("specific gravity");
+        } else if (cardCompareType.equals("cleavage")) {
+            cardPile.add(deckInstance.deckArray.get(0));
+            if (getCleavage(playerArray.get(playerIndex).playerHand.get(handCardIndex).getCleavage()) > getCleavage(cardPile.get(0).getCleavage()));
+                System.out.println("card was good");
+
+        } else if (cardCompareType.equals("crustal abundance")) {
+            System.out.println("crustal abundance");
+        } else {
+            System.out.println("economic value");
+        }
+
 
     }
 
@@ -119,6 +135,7 @@ public class Main {
         }
         return cleavValueInt;
     }
+
 
     static int getEconomicValue(String ecoValue) {
         int ecoValueInt = 0;

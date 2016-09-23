@@ -45,7 +45,12 @@ public class Deck {
                 NSString value8 = (NSString) card0.objectForKey("crustal_abundance");
                 NSString value9 = (NSString) card0.objectForKey("economic_value");
 
-                deckArray.add(new MineralCard(value0, value1, value2, value3, value4, value5, value6, value7, value8, value9));
+                deckArray.add(new MineralCard(value0, value1, value2, value3, value4, value5, value6, value7, value8, value9) {
+                    @Override
+                    String getDescription() {
+                        return null;
+                    }
+                });
 
             }
 
@@ -57,7 +62,52 @@ public class Deck {
                 NSString value0 = (NSString) card1.objectForKey("title");
                 NSString value1 = (NSString) card1.objectForKey("subtitle");
 
-                deckArray.add(new TrumpCard(value0, value1));
+                deckArray.add(new TrumpCard(value0, value1) {
+                    @Override
+                    String getChemistry() {
+                        return null;
+                    }
+
+                    @Override
+                    String getClassification() {
+                        return null;
+                    }
+
+                    @Override
+                    String getCrystal_system() {
+                        return null;
+                    }
+
+                    @Override
+                    NSArray getOccurrence() {
+                        return null;
+                    }
+
+                    @Override
+                    String getHardness() {
+                        return null;
+                    }
+
+                    @Override
+                    String getSpecific_gravity() {
+                        return null;
+                    }
+
+                    @Override
+                    String getCleavage() {
+                        return null;
+                    }
+
+                    @Override
+                    String getCrustal_abundance() {
+                        return null;
+                    }
+
+                    @Override
+                    String getEconomic_value() {
+                        return null;
+                    }
+                });
 
             }
 
