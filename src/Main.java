@@ -24,18 +24,19 @@ public class Main {
         cardPile = new ArrayList();
 
         Scanner input = new Scanner(System.in);
-        Integer playerArrayIndex = 0;
+        int playerAmount = 0;
+
         String roundType = " ";
 
 
         do {
             System.out.println("Enter the number of players here --> ");
-            playerArrayIndex = input.nextInt();
-        } while (playerArrayIndex > 5 || playerArrayIndex < 3);
+            playerAmount = input.nextInt();
+        } while (playerAmount > 5 || playerAmount < 3);
         input.nextLine();
 
 
-        for (int x = 0; x < playerArrayIndex; x = x + 1) {
+        for (int x = 0; x < playerAmount; x = x + 1) {
             String playerName;
             System.out.println("Enter a players name --> ");
             playerName = input.nextLine();
@@ -47,40 +48,70 @@ public class Main {
             playerArray.add(nextPlayer);
         }
 
-
+        System.out.println("The type for the round is --> " + roundType);
+        roundType = chooseType(roundType);
+        int outCounter = 0;
         while (playerArray.size() > 1) {
-            roundType = chooseType(roundType);
-            System.out.println("The type for the round is --> " + roundType);
             for (int i = 0; i < playerArray.size(); i++) {
-                System.out.println("Enter an option for player: " + playerArray.get(i).playerName + " \n play \n pass");
-                String gameOption = input.nextLine();
-                if (gameOption.equals("play")) {
-                    cardCompare(roundType, 0, 0, 0);
-                    placeCard(playerArray.get(i));
-                    System.out.println(playerArray.get(i).getPlayer());
-                } else if (gameOption.equals("pass")) {
-                    drawCard(playerArray.get(i));
-                    System.out.println(playerArray.get(i).getPlayer());
-                } else pileCreator();
+                if (playerArray.get(i).inOut){
+                    System.out.println("Enter an option for player: " + playerArray.get(i).playerName + " \n play \n pass");
+                    String gameOption = input.nextLine();
+                    if (gameOption.equals("play")) {
+                        cardCompare(roundType, 0, 0, 0);
+                        placeCard(playerArray.get(i));
+                        System.out.println(playerArray.get(i).getPlayer());
+
+                    } else if (gameOption.equals("pass")) {
+                        drawCard(playerArray.get(i));
+                        System.out.println(playerArray.get(i).getPlayer());
+                        playerArray.get(i).inOut = Boolean.FALSE;
+                        outCounter ++;
+                        newRound(playerAmount, outCounter);
+
+                    } else if (gameOption.equals("look")) {
+                        showCardPile();
+                        newRound(playerAmount, outCounter);
+                    }
+                }
+            }
+        }
+
+
+    }
+
+    static void newRound(int playerAmountPlace, int outCounterPlace){
+        if (outCounterPlace == playerAmountPlace){
+            for (int i = 0; i < playerArray.size(); i++) {
+                playerArray.get(i).inOut = Boolean.TRUE;
             }
         }
     }
 
-
     static void cardCompare(String cardCompareType, int playerIndex, int handCardIndex, int pileCardPlace) {
-        if (cardCompareType.equals("hardness")) {
-            System.out.println("hardness");
-        } else if (cardCompareType.equals("specific gravity")) {
-            System.out.println("specific gravity");
-        } else if (cardCompareType.equals("cleavage")) {
-            cardPile.add(deckInstance.deckArray.get(0));
-            if (getCleavage(playerArray.get(playerIndex).playerHand.get(handCardIndex).getCleavage()) > getCleavage(cardPile.get(0).getCleavage()));
-                System.out.println("card was good");
+        switch (cardCompareType) {
+            case "hardness":
+                System.out.println("hardness");
+                break;
+            case "specific gravity":
+                System.out.println("specific gravity");
+                break;
+            case "cleavage":
+                System.out.println("cleavage");
 
-        } else if (cardCompareType.equals("crustal abundance")) {
-            System.out.println("crustal abundance");
-        } else {
-            System.out.println("economic value");
+            /*
+            cardPile.add(deckInstance.deckArray.get(0));
+            if (getCleavage(playerArray.get(playerIndex).playerHand.get(handCardIndex).getCleavage()) > getCleavage(cardPile.get(0).getCleavage()))
+                ;
+            System.out.println("card was good");
+            */
+
+                break;
+            case "crustal abundance":
+                System.out.println("crustal abundance");
+                break;
+            default:
+                System.out.println("economic value");
+                break;
         }
 
 
@@ -185,7 +216,7 @@ public class Main {
         System.out.println(playerPlace.playerHand.remove(cardHandIndex) + " was removed from hand");
     }
 
-    static void pileCreator() {
+    static void showCardPile() {
         System.out.println("<<BOTTOM OF THE PILE>> \n " + cardPile.toString());
     }
 

@@ -18,14 +18,23 @@ public abstract class Card {
     }
 
     abstract String getChemistry();
+
     abstract String getClassification();
+
     abstract String getCrystal_system();
+
     abstract NSArray getOccurrence();
+
     abstract String getHardness();
+
     abstract String getSpecific_gravity(); //might change to float
+
     abstract String getCleavage();
+
     abstract String getCrustal_abundance();
+
     abstract String getEconomic_value();
+
     abstract String getDescription();
 
     public String toString() {
@@ -61,16 +70,41 @@ abstract class MineralCard extends Card {
     /*public String toString() { return (this.specific_gravity + " "); }*/
 
     @Override
-    public String getChemistry() {return chemistry;}
-    public String getClassification() {return classification;}
-    public String getCrystal_system() {return crystal_system;}
-    public NSArray getOccurrence() {return occurrence;}
-    public String getHardness() {return hardness;}
-    public String getSpecific_gravity() {return specific_gravity;}
-    public String getCleavage() {return cleavage;}
-    public String getCrustal_abundance() {return crustal_abundance;}
-    public String getEconomic_value() {return economic_value;}
-    //public String getDescription() {return null;}
+    public String getChemistry() {
+        return chemistry;
+    }
+
+    public String getClassification() {
+        return classification;
+    }
+
+    public String getCrystal_system() {
+        return crystal_system;
+    }
+
+    public NSArray getOccurrence() {
+        return occurrence;
+    }
+
+    public String getHardness() {
+        return hardness;
+    }
+
+    public String getSpecific_gravity() {
+        return specific_gravity;
+    }
+
+    public String getCleavage() {
+        return cleavage;
+    }
+
+    public String getCrustal_abundance() {
+        return crustal_abundance;
+    }
+
+    public String getEconomic_value() {
+        return economic_value;
+    }
 
 }
 
@@ -83,18 +117,9 @@ abstract class TrumpCard extends Card {
     }
 
     @Override
-    /*
-    public String getChemistry() {return null;}
-    public String getClassification() {return null;}
-    public String getCrystal_system() {return null;}
-    public NSArray getOccurrence() {return null;}
-    public String getHardness() {return null;}
-    public String getSpecific_gravity() {return null;}
-    public String getCleavage() {return null;}
-    public String getCrustal_abundance() {return null;}
-    public String getEconomic_value() {return null;}
-    */
-    public String getDescription() {return subtitle;}
+    public String getDescription() {
+        return subtitle;
+    }
     /*
     public String toString() {
         return ("This Trump Card is " + this.title + "\n its description is " + this.subtitle + "\n");

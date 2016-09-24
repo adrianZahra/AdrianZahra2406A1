@@ -15,19 +15,19 @@ public class Player {
     ArrayList<Card> playerHand;
     Boolean inOut;
 
-    Player(String in_playerName){
+    Player(String in_playerName) {
         this.playerName = in_playerName;
         this.playerHand = new ArrayList<Card>();
         this.inOut = true;
     }
 
-    public String getPlayer(){
+    public String getPlayer() {
         String hand = "";
 
-        for(Card i : playerHand){
-            hand += i+ " ";
+        for (Card i : playerHand) {
+            hand += i + " ";
         }
 
-        return (this.playerName + " " + hand + " " + this.inOut);
+        return ("Player name: " + this.playerName + "\n " + hand);
     }
 }
