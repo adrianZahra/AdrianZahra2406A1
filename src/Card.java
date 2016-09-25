@@ -38,7 +38,7 @@ public abstract class Card {
     abstract String getDescription();
 
     public String toString() {
-        return ("Card name --> " + this.title);
+        return ("Card name: " + this.title + "\n Hardness: " + getHardness() + "\n Specific Gravity: " + getSpecific_gravity() + "\n Cleavage: "  + getCleavage() + "\n Crustal Abundance: "  + getCrustal_abundance() + "\n Economic Value: "  + getEconomic_value());
     }
 
 }

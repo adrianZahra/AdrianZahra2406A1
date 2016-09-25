@@ -51,17 +51,14 @@ public class Main {
         System.out.println("The type for the round is --> " + roundType);
         int outCounter = 0;
         while (playerArray.size() > 1) {
-            //newRound(playerAmount, outCounter);
             for (int i = 0; i < playerArray.size(); i++) {
-                //newRound(playerAmount, outCounter);
                 if (playerArray.get(i).inOut) {
                     System.out.println("Enter an option for player: " + playerArray.get(i).playerName + " \n 1.play \n 2.pass");
                     int gameOption = input.nextInt();
                     if (gameOption == 1) {
-                        //newRound(playerAmount, outCounter);
-                        cardCompare(roundType, 0, 0, 0);
-                        placeCard(playerArray.get(i));
+                        showCardPile();
                         System.out.println(playerArray.get(i).getPlayer());
+                        cardCompare(playerArray.get(i),roundType, i);
 
                     } else if (gameOption == 2) {
                         drawCard(playerArray.get(i));
@@ -69,10 +66,6 @@ public class Main {
                         playerArray.get(i).inOut = Boolean.FALSE;
                         outCounter++;
                         outCounter = newRound(playerAmount, outCounter);
-
-                    } else if (gameOption == 3) {
-                        showCardPile();
-                        //newRound(playerAmount, outCounter);
 
                     }
                 }
@@ -92,34 +85,108 @@ public class Main {
         return outCounterPlace;
     }
 
-    static void cardCompare(String cardCompareType, int playerIndex, int handCardIndex, int pileCardPlace) {
+    static void cardCompare(Player playerPlace, String cardCompareType, int playerIndex) {
+        Integer handCardValue;
+        Integer pileCardValue;
+        int cardHandIndex;
+        Scanner input = new Scanner(System.in);
+        System.out.println("type the number of the card you wish to place --> ");
+        cardHandIndex = input.nextInt();
+
         switch (cardCompareType) {
             case "hardness":
-                System.out.println("hardness");
-                break;
-            case "specific gravity":
-                System.out.println("specific gravity");
-                break;
-            case "cleavage":
-                System.out.println("cleavage");
+                handCardValue = getHardness(playerArray.get(playerIndex).playerHand.get(cardHandIndex).getCleavage());
+                try {
+                    pileCardValue = getHardness(cardPile.get(0).getCleavage());
 
-            /*
-            cardPile.add(deckInstance.deckArray.get(0));
-            if (getCleavage(playerArray.get(playerIndex).playerHand.get(handCardIndex).getCleavage()) > getCleavage(cardPile.get(0).getCleavage()))
-                ;
-            System.out.println("card was good");
-            */
+                }catch (IndexOutOfBoundsException e){
+                    System.out.println("there was no card on the pile you. may place your card");
+                    pileCardValue = 0;
+                }
+
+                if (handCardValue > pileCardValue){
+                    System.out.println("the card has a higher value");
+                    cardPile.add(playerPlace.playerHand.get(cardHandIndex));
+                    System.out.println(playerPlace.playerHand.remove(cardHandIndex) + " was removed from hand");
+                }else System.out.println("the cards value was not higher! Try again");
+                break;
+
+            case "specific gravity":
+                handCardValue = getSpecificGravity(playerArray.get(playerIndex).playerHand.get(cardHandIndex).getCleavage());
+                try {
+                    pileCardValue = getSpecificGravity(cardPile.get(0).getCleavage());
+
+                }catch (IndexOutOfBoundsException e){
+                    System.out.println("there was no card on the pile you. may place your card");
+                    pileCardValue = 0;
+                }
+
+                if (handCardValue > pileCardValue){
+                    System.out.println("the card has a higher value");
+                    cardPile.add(playerPlace.playerHand.get(cardHandIndex));
+                    System.out.println(playerPlace.playerHand.remove(cardHandIndex) + " was removed from hand");
+                }else System.out.println("the cards value was not higher! Try again");
+                break;
+
+            case "cleavage":
+                handCardValue = getCleavage(playerArray.get(playerIndex).playerHand.get(cardHandIndex).getCleavage());
+                try {
+                    pileCardValue = getCleavage(cardPile.get(0).getCleavage());
+
+                }catch (IndexOutOfBoundsException e){
+                    System.out.println("there was no card on the pile you. may place your card");
+                    pileCardValue = 0;
+                }
+
+                if (handCardValue > pileCardValue){
+                    System.out.println("the card has a higher value");
+                    cardPile.add(playerPlace.playerHand.get(cardHandIndex));
+                    System.out.println(playerPlace.playerHand.remove(cardHandIndex) + " was removed from hand");
+                }else System.out.println("the cards value was not higher! Try again");
 
                 break;
             case "crustal abundance":
-                System.out.println("crustal abundance");
+                handCardValue = getCrustalAbundance(playerArray.get(playerIndex).playerHand.get(cardHandIndex).getCleavage());
+                try {
+                    pileCardValue = getCrustalAbundance(cardPile.get(0).getCleavage());
+
+                }catch (IndexOutOfBoundsException e){
+                    System.out.println("there was no card on the pile you. may place your card");
+                    pileCardValue = 0;
+                }
+
+                if (handCardValue > pileCardValue){
+                    System.out.println("the card has a higher value");
+                    cardPile.add(playerPlace.playerHand.get(cardHandIndex));
+                    System.out.println(playerPlace.playerHand.remove(cardHandIndex) + " was removed from hand");
+                }else System.out.println("the cards value was not higher! Try again");
                 break;
+
             default:
-                System.out.println("economic value");
+                handCardValue = getEconomicValue(playerArray.get(playerIndex).playerHand.get(cardHandIndex).getCleavage());
+                try {
+                    pileCardValue = getEconomicValue(cardPile.get(0).getCleavage());
+
+                }catch (IndexOutOfBoundsException e){
+                    System.out.println("there was no card on the pile you. may place your card");
+                    pileCardValue = 0;
+                }
+
+                if (handCardValue > pileCardValue){
+                    System.out.println("the card has a higher value");
+                    cardPile.add(playerPlace.playerHand.get(cardHandIndex));
+                    System.out.println(playerPlace.playerHand.remove(cardHandIndex) + " was removed from hand");
+                }else System.out.println("the cards value was not higher! Try again");
                 break;
         }
 
 
+    }
+
+    static int getSpecificGravity(String cleavage) {
+    }
+
+    static int getHardness(String cleavage) {
     }
 
     static String chooseType(String typeHolder) {
@@ -210,15 +277,6 @@ public class Main {
         }
         return crustValueInt;
 
-    }
-
-    static void placeCard(Player playerPlace) {
-        int cardHandIndex;
-        Scanner input = new Scanner(System.in);
-        System.out.println("type the number of the card you wish to place --> ");
-        cardHandIndex = input.nextInt();
-        cardPile.add(playerPlace.playerHand.get(cardHandIndex));
-        System.out.println(playerPlace.playerHand.remove(cardHandIndex) + " was removed from hand");
     }
 
     static void showCardPile() {
