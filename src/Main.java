@@ -25,7 +25,6 @@ public class Main {
 
         Scanner input = new Scanner(System.in);
         int playerAmount = 0;
-
         String roundType = " ";
 
 
@@ -48,43 +47,49 @@ public class Main {
             playerArray.add(nextPlayer);
         }
 
-        System.out.println("The type for the round is --> " + roundType);
         roundType = chooseType(roundType);
+        System.out.println("The type for the round is --> " + roundType);
         int outCounter = 0;
         while (playerArray.size() > 1) {
+            //newRound(playerAmount, outCounter);
             for (int i = 0; i < playerArray.size(); i++) {
-                if (playerArray.get(i).inOut){
-                    System.out.println("Enter an option for player: " + playerArray.get(i).playerName + " \n play \n pass");
-                    String gameOption = input.nextLine();
-                    if (gameOption.equals("play")) {
+                //newRound(playerAmount, outCounter);
+                if (playerArray.get(i).inOut) {
+                    System.out.println("Enter an option for player: " + playerArray.get(i).playerName + " \n 1.play \n 2.pass");
+                    int gameOption = input.nextInt();
+                    if (gameOption == 1) {
+                        //newRound(playerAmount, outCounter);
                         cardCompare(roundType, 0, 0, 0);
                         placeCard(playerArray.get(i));
                         System.out.println(playerArray.get(i).getPlayer());
 
-                    } else if (gameOption.equals("pass")) {
+                    } else if (gameOption == 2) {
                         drawCard(playerArray.get(i));
                         System.out.println(playerArray.get(i).getPlayer());
                         playerArray.get(i).inOut = Boolean.FALSE;
-                        outCounter ++;
-                        newRound(playerAmount, outCounter);
+                        outCounter++;
+                        outCounter = newRound(playerAmount, outCounter);
 
-                    } else if (gameOption.equals("look")) {
+                    } else if (gameOption == 3) {
                         showCardPile();
-                        newRound(playerAmount, outCounter);
+                        //newRound(playerAmount, outCounter);
+
                     }
                 }
             }
         }
-
-
     }
 
-    static void newRound(int playerAmountPlace, int outCounterPlace){
-        if (outCounterPlace == playerAmountPlace){
+    static int newRound(int playerAmountPlace, int outCounterPlace) {
+        playerAmountPlace--;
+        if (outCounterPlace == playerAmountPlace) {
+            System.out.println("-----------------------------------\n The current round has ended \n the new round will start now \n -----------------------------------");
             for (int i = 0; i < playerArray.size(); i++) {
                 playerArray.get(i).inOut = Boolean.TRUE;
             }
+            outCounterPlace = 0;
         }
+        return outCounterPlace;
     }
 
     static void cardCompare(String cardCompareType, int playerIndex, int handCardIndex, int pileCardPlace) {
@@ -120,7 +125,7 @@ public class Main {
     static String chooseType(String typeHolder) {
         Scanner input = new Scanner(System.in);
         do {
-            System.out.println("Enter the type for the round --> \n Hardness \n specific gravity \n Cleavage \n crustal abundance \n economic value ");
+            System.out.println("Enter the type for the round --> \n hardness \n specific gravity \n cleavage \n crustal abundance \n economic value ");
             typeHolder = input.nextLine();
         }
         while (!typeHolder.equals("hardness") && !typeHolder.equals("specific gravity") && !typeHolder.equals("cleavage") && !typeHolder.equals("crustal abundance") && !typeHolder.equals("economic value"));
