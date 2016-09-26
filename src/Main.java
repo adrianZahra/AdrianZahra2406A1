@@ -186,7 +186,82 @@ public class Main {
     static int getSpecificGravity(String cleavage) {
     }
 
-    static int getHardness(String cleavage) {
+    static int getHardness(String hardValue) {
+        int hardValueInt = 0;
+        switch (hardValue) {
+            case "1":
+                return 1;
+            case "1-1.5":
+                return 2;
+            case "1-2":
+                return 3;
+            case "2":
+                return 4;
+            case "1.5-2.5":
+                return 5;
+            case "2.5":
+                return 6;
+            case "2-3":
+                return 7;
+            case "2.5-3":
+                return 8;
+            case "3":
+                return 9;
+            case "2.5-3.5":
+                return 10;
+            case "3-3.5":
+                return 11;
+            case "3.5-4":
+                return 12;
+            case "4":
+                return 13;
+            case "3.5-4.5":
+                return 14;
+            case "4-4.5":
+                return 15;
+            case "5":
+                return 16;
+            case "5-5.5":
+                return 17;
+            case "5.5":
+                return 18;
+            case "5-6":
+                return 19;
+            case "5.5-6":
+                return 20;
+            case "6":
+                return 21;
+            case "5.5-6.5":
+                return 22;
+            case "6-6.5":
+                return 23;
+            case "5.5-7":
+                return 24;
+            case "6-7":
+                return 25;
+            case "6.5-7":
+                return 26;
+            case "7":
+                return 27;
+            case "6-7.5":
+                return 28;
+            case "6.5-7.5":
+                return 29;
+            case "7-7.5":
+                return 30;
+            case "7.5":
+                return 31;
+            case "7.5-8":
+                return 32;
+            case "8":
+                return 33;
+            case "9":
+                return 34;
+            case "10":
+                return 35;
+
+        }
+        return hardValueInt;
     }
 
     static String chooseType(String typeHolder) {
