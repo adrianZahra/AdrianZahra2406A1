@@ -1,10 +1,8 @@
-import com.dd.plist.NSString;
 import com.dd.plist.PropertyListFormatException;
 import org.xml.sax.SAXException;
 
 import javax.xml.parsers.ParserConfigurationException;
 import java.io.IOException;
-import java.lang.reflect.Array;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -36,13 +34,13 @@ public class Main {
         } while (playerAmount > 5 || playerAmount < 3);
         input.nextLine();
 
+        Collections.shuffle(deckInstance.deckArray);
 
         for (int x = 0; x < playerAmount; x = x + 1) {
             String playerName;
             System.out.println("Enter a name for player: " + x);
             playerName = input.nextLine();
             Player nextPlayer = new Player(playerName);
-            //Collections.shuffle(instance.deckArray);
             while (nextPlayer.playerHand.size() < 8) {
                 nextPlayer.playerHand.add(deckInstance.deckArray.remove(0));
             }
@@ -81,12 +79,12 @@ public class Main {
                             }
 
                         }
-                    }while (!gameOption.equals("play") && !gameOption.equals("pass")) ;
+                    } while (!gameOption.equals("play") && !gameOption.equals("pass"));
                 }
             }
         }
         System.out.println("\n" + "The game has ended Congratulations winners");
-        for (Player winner : winnerPile){
+        for (Player winner : winnerPile) {
             System.out.println(winner.getPlayer());
         }
 
@@ -106,36 +104,35 @@ public class Main {
                 try {
                     pileCardValue = getHardness(cardPile.get(0).getCleavage());
 
-                }catch (IndexOutOfBoundsException e){
+                } catch (IndexOutOfBoundsException e) {
                     System.out.println("there was no card on the pile you. may place your card");
                     pileCardValue = -1;
                 }
 
-                if (handCardValue > pileCardValue){
+                if (handCardValue > pileCardValue) {
                     System.out.println("the card has a higher value");
                     cardPile.add(playerPlace.playerHand.get(cardHandIndex));
                     System.out.println(playerPlace.playerHand.remove(cardHandIndex) + " was removed from hand");
-                }else System.out.println("the cards value was not higher! Try again");
+                } else System.out.println("the cards value was not higher! Try again");
                 break;
 
 
             case "specific gravity":
-                /*
+
                 handCardValue = getSpecificGravity(playerArray.get(playerIndex).playerHand.get(cardHandIndex).getCleavage());
                 try {
                     pileCardValue = getSpecificGravity(cardPile.get(0).getCleavage());
 
-                }catch (IndexOutOfBoundsException e){
+                } catch (IndexOutOfBoundsException e) {
                     System.out.println("there was no card on the pile you. may place your card");
                     pileCardValue = -1;
                 }
 
-                if (handCardValue > pileCardValue){
+                if (handCardValue > pileCardValue) {
                     System.out.println("the card has a higher value");
                     cardPile.add(playerPlace.playerHand.get(cardHandIndex));
                     System.out.println(playerPlace.playerHand.remove(cardHandIndex) + " was removed from hand");
-                }else System.out.println("the cards value was not higher! Try again");
-                */
+                } else System.out.println("the cards value was not higher! Try again");
                 break;
 
 
@@ -144,16 +141,19 @@ public class Main {
                 try {
                     pileCardValue = getCleavage(cardPile.get(0).getCleavage());
 
-                }catch (IndexOutOfBoundsException e){
+                } catch (IndexOutOfBoundsException e) {
                     System.out.println("there was no card on the pile you. may place your card");
                     pileCardValue = -1;
                 }
 
-                if (handCardValue > pileCardValue){
+                if (handCardValue > pileCardValue) {
                     System.out.println("the card has a higher value");
                     cardPile.add(playerPlace.playerHand.get(cardHandIndex));
                     System.out.println(playerPlace.playerHand.remove(cardHandIndex) + " was removed from hand");
-                }else System.out.println("the cards value was not higher! Try again");
+                } else {
+                    System.out.println("the cards value was not higher! Try again");
+
+                }
 
                 break;
 
@@ -163,16 +163,16 @@ public class Main {
                 try {
                     pileCardValue = getCrustalAbundance(cardPile.get(0).getCleavage());
 
-                }catch (IndexOutOfBoundsException e){
+                } catch (IndexOutOfBoundsException e) {
                     System.out.println("there was no card on the pile you. may place your card");
                     pileCardValue = -1;
                 }
 
-                if (handCardValue > pileCardValue){
+                if (handCardValue > pileCardValue) {
                     System.out.println("the card has a higher value");
                     cardPile.add(playerPlace.playerHand.get(cardHandIndex));
                     System.out.println(playerPlace.playerHand.remove(cardHandIndex) + " was removed from hand");
-                }else System.out.println("the cards value was not higher! Try again");
+                } else System.out.println("the cards value was not higher! Try again");
                 break;
 
 
@@ -181,16 +181,16 @@ public class Main {
                 try {
                     pileCardValue = getEconomicValue(cardPile.get(0).getCleavage());
 
-                }catch (IndexOutOfBoundsException e){
+                } catch (IndexOutOfBoundsException e) {
                     System.out.println("there was no card on the pile you. may place your card");
                     pileCardValue = -1;
                 }
 
-                if (handCardValue > pileCardValue){
+                if (handCardValue > pileCardValue) {
                     System.out.println("the card has a higher value");
                     cardPile.add(playerPlace.playerHand.get(cardHandIndex));
                     System.out.println(playerPlace.playerHand.remove(cardHandIndex) + " was removed from hand");
-                }else System.out.println("the cards value was not higher! Try again");
+                } else System.out.println("the cards value was not higher! Try again");
                 break;
         }
 
@@ -225,36 +225,102 @@ public class Main {
     static int getSpecificGravity(String gravValue) {
         int gravValueInt = 0;
         switch (gravValue) {
-            case "":
+            case "2.2":
                 return 1;
-            case "":
+            case "2.3":
                 return 2;
-            case "":
+            case "2.4":
                 return 3;
-            case "":
+            case "2.5-2.6":
                 return 4;
-            case "":
+            case "2.6":
                 return 5;
-            case "":
+            case "2.65":
                 return 6;
-            case "":
+            case "2.6-2.7":
                 return 7;
-            case "":
+            case "2.7":
                 return 8;
-            case "":
+            case "2.6-2.8":
                 return 9;
-            case "":
+            case "2.6-2.9":
                 return 10;
-            case "":
+            case "2.8-2.9":
                 return 11;
-            case "":
+            case "2.9":
                 return 12;
-            case "":
+            case "3.0":
                 return 13;
-            case "":
+            case "3.15":
                 return 14;
-            case "":
+            case "3.1-3.2":
                 return 15;
+            case "3.0-3.2":
+                return 16;
+            case "3.2":
+                return 17;
+            case "3.25":
+                return 18;
+            case "2.6-3.3":
+                return 19;
+            case "2.7-3.3":
+                return 20;
+            case "3.0-3.5":
+                return 21;
+            case "3.5":
+                return 22;
+            case "3.2-3.5":
+                return 23;
+            case "3.2-3.6":
+                return 24;
+            case "3.4-3.6":
+                return 25;
+            case "3.5-3.6":
+                return 26;
+            case "3.5-3.7":
+                return 27;
+            case "3.7-3.8":
+                return 28;
+            case "3.2-3.9":
+                return 29;
+            case "4.0":
+                return 30;
+            case "3.9-4.1":
+                return 31;
+            case "3.5-4.3":
+                return 32;
+            case "4.1-4.3":
+                return 33;
+            case "4.3":
+                return 34;
+            case "3.2-4.4":
+                return 35;
+            case "4.5":
+                return 36;
+            case "4.6":
+                return 37;
+            case "4.6-4.7":
+                return 38;
+            case "4.7":
+                return 39;
+            case "4.7-4.8":
+                return 40;
+            case "5.0":
+                return 41;
+            case "4.5-5.1":
+                return 42;
+            case "5.2":
+                return 43;
+            case "5.0-5.3":
+                return 44;
+            case "5.3":
+                return 45;
+            case "6.9-7.1":
+                return 46;
+            case "7.5-7.6":
+                return 47;
+            case "19.3":
+                return 48;
 
         }
         return gravValueInt;
