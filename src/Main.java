@@ -61,7 +61,7 @@ public class Main {
                             showCardPile();
                             System.out.println("The type for the round is: " + roundType + "\n");
                             System.out.println(playerArray.get(i).getPlayer());
-                            cardCompare(playerArray.get(i), roundType, i);
+                            roundType = cardCompare(playerArray.get(i), roundType, i);
                             if (playerArray.get(i).playerHand.size() == 0) {
                                 System.out.println("Congratulations " + playerArray.get(i).getPlayer() + " for emptying your hand \n");
                                 winnerPile.add(playerArray.get(i));
@@ -90,8 +90,8 @@ public class Main {
 
     }
 
-    static void cardCompare(Player playerPlace, String cardCompareType, int playerIndex) {
-        Integer handCardValue;
+    static String cardCompare(Player playerPlace, String cardCompareType, int playerIndex) {
+        Integer handCardValue = -1;
         Integer pileCardValue;
         int cardHandIndex;
         Scanner input = new Scanner(System.in);
@@ -100,11 +100,20 @@ public class Main {
 
         switch (cardCompareType) {
             case "hardness":
-                handCardValue = getHardness(playerArray.get(playerIndex).playerHand.get(cardHandIndex).getCleavage());
+                //handCardValue = getHardness(playerArray.get(playerIndex).playerHand.get(cardHandIndex).getCleavage());
                 try {
-                    pileCardValue = getHardness(cardPile.get(0).getCleavage());
+                    handCardValue = getHardnessVal(playerArray.get(playerIndex).playerHand.get(cardHandIndex).getHardness());
+                } catch (NullPointerException a){
+                    System.out.println("you have played" + playerArray.get(playerIndex).playerHand.get(cardHandIndex).title);
+                    if (playerArray.get(playerIndex).playerHand.get(cardHandIndex).title.equals("The Geologist")){
+                        cardCompareType = chooseType(cardCompareType).toLowerCase();
+                    }else cardCompareType = playerArray.get(playerIndex).playerHand.get(cardHandIndex).getDescription().toLowerCase();
+                }
 
-                } catch (IndexOutOfBoundsException e) {
+                try {
+                    pileCardValue = getHardnessVal(cardPile.get(0).getHardness());
+
+                } catch (IndexOutOfBoundsException b) {
                     System.out.println("there was no card on the pile you. may place your card");
                     pileCardValue = -1;
                 }
@@ -119,9 +128,17 @@ public class Main {
 
             case "specific gravity":
 
-                handCardValue = getSpecificGravity(playerArray.get(playerIndex).playerHand.get(cardHandIndex).getCleavage());
                 try {
-                    pileCardValue = getSpecificGravity(cardPile.get(0).getCleavage());
+                    handCardValue = getSpecificGravityVal(playerArray.get(playerIndex).playerHand.get(cardHandIndex).getSpecific_gravity());
+                } catch (NullPointerException a){
+                    System.out.println("you have played" + playerArray.get(playerIndex).playerHand.get(cardHandIndex).title);
+                    if (playerArray.get(playerIndex).playerHand.get(cardHandIndex).title.equals("The Geologist")){
+                        cardCompareType = chooseType(cardCompareType).toLowerCase();
+                    }else cardCompareType = playerArray.get(playerIndex).playerHand.get(cardHandIndex).getDescription().toLowerCase();
+                }
+
+                try {
+                    pileCardValue = getSpecificGravityVal(cardPile.get(0).getSpecific_gravity());
 
                 } catch (IndexOutOfBoundsException e) {
                     System.out.println("there was no card on the pile you. may place your card");
@@ -137,9 +154,17 @@ public class Main {
 
 
             case "cleavage":
-                handCardValue = getCleavage(playerArray.get(playerIndex).playerHand.get(cardHandIndex).getCleavage());
                 try {
-                    pileCardValue = getCleavage(cardPile.get(0).getCleavage());
+                    handCardValue = getCleavageVal(playerArray.get(playerIndex).playerHand.get(cardHandIndex).getCleavage());
+                } catch (NullPointerException a){
+                    System.out.println("you have played" + playerArray.get(playerIndex).playerHand.get(cardHandIndex).title);
+                    if (playerArray.get(playerIndex).playerHand.get(cardHandIndex).title.equals("The Geologist")){
+                        cardCompareType = chooseType(cardCompareType).toLowerCase();
+                    }else cardCompareType = playerArray.get(playerIndex).playerHand.get(cardHandIndex).getDescription().toLowerCase();
+                }
+
+                try {
+                    pileCardValue = getCleavageVal(cardPile.get(0).getCleavage());
 
                 } catch (IndexOutOfBoundsException e) {
                     System.out.println("there was no card on the pile you. may place your card");
@@ -159,9 +184,17 @@ public class Main {
 
 
             case "crustal abundance":
-                handCardValue = getCrustalAbundance(playerArray.get(playerIndex).playerHand.get(cardHandIndex).getCleavage());
                 try {
-                    pileCardValue = getCrustalAbundance(cardPile.get(0).getCleavage());
+                    handCardValue = getCrustalAbundanceVal(playerArray.get(playerIndex).playerHand.get(cardHandIndex).getCrustal_abundance());
+                } catch (NullPointerException a){
+                    System.out.println("you have played" + playerArray.get(playerIndex).playerHand.get(cardHandIndex).title);
+                    if (playerArray.get(playerIndex).playerHand.get(cardHandIndex).title.equals("The Geologist")){
+                        cardCompareType = chooseType(cardCompareType).toLowerCase();
+                    }else cardCompareType = playerArray.get(playerIndex).playerHand.get(cardHandIndex).getDescription().toLowerCase();
+                }
+
+                try {
+                    pileCardValue = getCrustalAbundanceVal(cardPile.get(0).getCrustal_abundance());
 
                 } catch (IndexOutOfBoundsException e) {
                     System.out.println("there was no card on the pile you. may place your card");
@@ -177,9 +210,17 @@ public class Main {
 
 
             default:
-                handCardValue = getEconomicValue(playerArray.get(playerIndex).playerHand.get(cardHandIndex).getCleavage());
                 try {
-                    pileCardValue = getEconomicValue(cardPile.get(0).getCleavage());
+                    handCardValue = getEconomicValueVal(playerArray.get(playerIndex).playerHand.get(cardHandIndex).getEconomic_value());
+                } catch (NullPointerException a){
+                    System.out.println("you have played" + playerArray.get(playerIndex).playerHand.get(cardHandIndex).title);
+                    if (playerArray.get(playerIndex).playerHand.get(cardHandIndex).title.equals("The Geologist")){
+                        cardCompareType = chooseType(cardCompareType).toLowerCase();
+                    }else cardCompareType = playerArray.get(playerIndex).playerHand.get(cardHandIndex).getDescription().toLowerCase();
+                }
+
+                try {
+                    pileCardValue = getEconomicValueVal(cardPile.get(0).getEconomic_value());
 
                 } catch (IndexOutOfBoundsException e) {
                     System.out.println("there was no card on the pile you. may place your card");
@@ -193,7 +234,7 @@ public class Main {
                 } else System.out.println("the cards value was not higher! Try again");
                 break;
         }
-
+        return cardCompareType;
 
     }
 
@@ -222,7 +263,21 @@ public class Main {
         return typeHolder;
     }
 
-    static int getSpecificGravity(String gravValue) {
+
+    /*
+    static String getTrumpEfect(String trumpName){
+        switch (trumpName){
+            case "The Geophysicist":
+                trumpName = chooseType(trumpName);
+                return trumpName;
+
+
+
+        }
+    }
+    */
+
+    static int getSpecificGravityVal(String gravValue) {
         int gravValueInt = 0;
         switch (gravValue) {
             case "2.2":
@@ -326,7 +381,7 @@ public class Main {
         return gravValueInt;
     }
 
-    static int getCleavage(String cleavValue) {
+    static int getCleavageVal(String cleavValue) {
         int cleavValueInt = 0;
         switch (cleavValue) {
             case "none":
@@ -364,7 +419,7 @@ public class Main {
         return cleavValueInt;
     }
 
-    static int getHardness(String hardValue) {
+    static int getHardnessVal(String hardValue) {
         int hardValueInt = 0;
         switch (hardValue) {
             case "1":
@@ -442,7 +497,7 @@ public class Main {
         return hardValueInt;
     }
 
-    static int getEconomicValue(String ecoValue) {
+    static int getEconomicValueVal(String ecoValue) {
         int ecoValueInt = 0;
         switch (ecoValue) {
             case "trivial":
@@ -461,7 +516,7 @@ public class Main {
         return ecoValueInt;
     }
 
-    static int getCrustalAbundance(String crustValue) {
+    static int getCrustalAbundanceVal(String crustValue) {
         int crustValueInt = 0;
         switch (crustValue) {
             case "ultratrace":
