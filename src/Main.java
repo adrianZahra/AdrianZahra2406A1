@@ -17,11 +17,13 @@ public class Main {
     static Deck deckInstance;
     static ArrayList<Player> playerArray;
     static ArrayList<Card> cardPile;
+    static ArrayList<Player> winnerPile;
 
     public static void main(String[] args) throws PropertyListFormatException, ParserConfigurationException, SAXException, ParseException, IOException {
         deckInstance = new Deck();
         playerArray = new ArrayList();
         cardPile = new ArrayList();
+        winnerPile = new ArrayList();
 
         Scanner input = new Scanner(System.in);
         int playerAmount = 0;
@@ -41,7 +43,7 @@ public class Main {
             playerName = input.nextLine();
             Player nextPlayer = new Player(playerName);
             //Collections.shuffle(instance.deckArray);
-            while (nextPlayer.playerHand.size() < 2) {
+            while (nextPlayer.playerHand.size() < 8) {
                 nextPlayer.playerHand.add(deckInstance.deckArray.remove(0));
             }
             playerArray.add(nextPlayer);
@@ -57,8 +59,14 @@ public class Main {
                     int gameOption = input.nextInt();
                     if (gameOption == 1) {
                         showCardPile();
+                        System.out.println("The type for the round is --> " + roundType);
                         System.out.println(playerArray.get(i).getPlayer());
                         cardCompare(playerArray.get(i),roundType, i);
+                        if (playerArray.get(i).playerHand.size() == 0){
+                            System.out.println("Congratulations " + playerArray.get(i).getPlayer() + " for emptying your hand");
+                            winnerPile.add(playerArray.get(i));
+                            playerArray.remove(i);
+                        }
 
                     } else if (gameOption == 2) {
                         drawCard(playerArray.get(i));
@@ -66,23 +74,19 @@ public class Main {
                         playerArray.get(i).inOut = Boolean.FALSE;
                         outCounter++;
                         outCounter = newRound(playerAmount, outCounter);
+                        if (outCounter == 0){
+                            roundType = chooseType(roundType);
+                        }
 
                     }
                 }
             }
         }
-    }
-
-    static int newRound(int playerAmountPlace, int outCounterPlace) {
-        playerAmountPlace--;
-        if (outCounterPlace == playerAmountPlace) {
-            System.out.println("-----------------------------------\n The current round has ended \n the new round will start now \n -----------------------------------");
-            for (int i = 0; i < playerArray.size(); i++) {
-                playerArray.get(i).inOut = Boolean.TRUE;
-            }
-            outCounterPlace = 0;
+        System.out.println("The game has ended Congratulations winners");
+        for (Player winner : winnerPile){
+            System.out.println(winner.getPlayer());
         }
-        return outCounterPlace;
+
     }
 
     static void cardCompare(Player playerPlace, String cardCompareType, int playerIndex) {
@@ -101,7 +105,7 @@ public class Main {
 
                 }catch (IndexOutOfBoundsException e){
                     System.out.println("there was no card on the pile you. may place your card");
-                    pileCardValue = 0;
+                    pileCardValue = -1;
                 }
 
                 if (handCardValue > pileCardValue){
@@ -112,13 +116,14 @@ public class Main {
                 break;
 
             case "specific gravity":
+                /*
                 handCardValue = getSpecificGravity(playerArray.get(playerIndex).playerHand.get(cardHandIndex).getCleavage());
                 try {
                     pileCardValue = getSpecificGravity(cardPile.get(0).getCleavage());
 
                 }catch (IndexOutOfBoundsException e){
                     System.out.println("there was no card on the pile you. may place your card");
-                    pileCardValue = 0;
+                    pileCardValue = -1;
                 }
 
                 if (handCardValue > pileCardValue){
@@ -126,6 +131,7 @@ public class Main {
                     cardPile.add(playerPlace.playerHand.get(cardHandIndex));
                     System.out.println(playerPlace.playerHand.remove(cardHandIndex) + " was removed from hand");
                 }else System.out.println("the cards value was not higher! Try again");
+                */
                 break;
 
             case "cleavage":
@@ -135,7 +141,7 @@ public class Main {
 
                 }catch (IndexOutOfBoundsException e){
                     System.out.println("there was no card on the pile you. may place your card");
-                    pileCardValue = 0;
+                    pileCardValue = -1;
                 }
 
                 if (handCardValue > pileCardValue){
@@ -152,7 +158,7 @@ public class Main {
 
                 }catch (IndexOutOfBoundsException e){
                     System.out.println("there was no card on the pile you. may place your card");
-                    pileCardValue = 0;
+                    pileCardValue = -1;
                 }
 
                 if (handCardValue > pileCardValue){
@@ -169,7 +175,7 @@ public class Main {
 
                 }catch (IndexOutOfBoundsException e){
                     System.out.println("there was no card on the pile you. may place your card");
-                    pileCardValue = 0;
+                    pileCardValue = -1;
                 }
 
                 if (handCardValue > pileCardValue){
@@ -183,7 +189,71 @@ public class Main {
 
     }
 
-    static int getSpecificGravity(String cleavage) {
+    //static int getSpecificGravity(String cleavage) {
+    //}
+
+    static int newRound(int playerAmountPlace, int outCounterPlace) {
+        playerAmountPlace--;
+        if (outCounterPlace == playerAmountPlace) {
+            System.out.println("-----------------------------------\n The current round has ended \n the new round will start now \n -----------------------------------");
+            for (int i = 0; i < playerArray.size(); i++) {
+                playerArray.get(i).inOut = Boolean.TRUE;
+            }
+            outCounterPlace = 0;
+
+
+        }
+        return outCounterPlace;
+    }
+
+    static String chooseType(String typeHolder) {
+        Scanner input = new Scanner(System.in);
+        do {
+            System.out.println("Enter the type for the round --> \n hardness \n specific gravity \n cleavage \n crustal abundance \n economic value ");
+            typeHolder = input.nextLine();
+        }
+        while (!typeHolder.equals("hardness") && !typeHolder.equals("specific gravity") && !typeHolder.equals("cleavage") && !typeHolder.equals("crustal abundance") && !typeHolder.equals("economic value"));
+
+        return typeHolder;
+    }
+
+
+    static int getCleavage(String cleavValue) {
+        int cleavValueInt = 0;
+        switch (cleavValue) {
+            case "none":
+                return 1;
+            case "poor/none":
+                return 2;
+            case "1 poor":
+                return 3;
+            case "2 poor":
+                return 4;
+            case "1 good":
+                return 5;
+            case "1 good, 1 poor":
+                return 6;
+            case "2 good":
+                return 7;
+            case "3 good":
+                return 8;
+            case "1 perfect":
+                return 9;
+            case "1 perfect, 1 good":
+                return 10;
+            case "1 perfect, 2 good":
+                return 11;
+            case "2 perfect, 1 good":
+                return 12;
+            case "3 perfect":
+                return 13;
+            case "4 perfect":
+                return 14;
+            case "6 perfect":
+                return 15;
+
+        }
+        return cleavValueInt;
     }
 
     static int getHardness(String hardValue) {
@@ -264,57 +334,6 @@ public class Main {
         return hardValueInt;
     }
 
-    static String chooseType(String typeHolder) {
-        Scanner input = new Scanner(System.in);
-        do {
-            System.out.println("Enter the type for the round --> \n hardness \n specific gravity \n cleavage \n crustal abundance \n economic value ");
-            typeHolder = input.nextLine();
-        }
-        while (!typeHolder.equals("hardness") && !typeHolder.equals("specific gravity") && !typeHolder.equals("cleavage") && !typeHolder.equals("crustal abundance") && !typeHolder.equals("economic value"));
-
-        return typeHolder;
-    }
-
-
-    static int getCleavage(String cleavValue) {
-        int cleavValueInt = 0;
-        switch (cleavValue) {
-            case "none":
-                return 1;
-            case "poor/none":
-                return 2;
-            case "1 poor":
-                return 3;
-            case "2 poor":
-                return 4;
-            case "1 good":
-                return 5;
-            case "1 good, 1 poor":
-                return 6;
-            case "2 good":
-                return 7;
-            case "3 good":
-                return 8;
-            case "1 perfect":
-                return 9;
-            case "1 perfect, 1 good":
-                return 10;
-            case "1 perfect, 2 good":
-                return 11;
-            case "2 perfect, 1 good":
-                return 12;
-            case "3 perfect":
-                return 13;
-            case "4 perfect":
-                return 14;
-            case "6 perfect":
-                return 15;
-
-        }
-        return cleavValueInt;
-    }
-
-
     static int getEconomicValue(String ecoValue) {
         int ecoValueInt = 0;
         switch (ecoValue) {
@@ -355,7 +374,7 @@ public class Main {
     }
 
     static void showCardPile() {
-        System.out.println("<<BOTTOM OF THE PILE>> \n " + cardPile.toString());
+        System.out.println("--------------------\nTOP OF THE PILE>>\n " + cardPile.toString() + "\n--------------------");
     }
 
     static void drawCard(Player playerPlace) {
