@@ -33,14 +33,16 @@ public class Main {
         } while (playerAmount > 5 || playerAmount < 3);
         input.nextLine();
 
-        Collections.shuffle(deckInstance.deckArray);
+        //Collections.shuffle(deckInstance.deckArray);
+        //deckInstance.print();
+
 
         for (int x = 0; x < playerAmount; x = x + 1) {
             String playerName;
             System.out.println("Enter a name for player: " + x);
             playerName = input.nextLine();
             Player nextPlayer = new Player(playerName);
-            while (nextPlayer.playerHand.size() < 2) {
+            while (nextPlayer.playerHand.size() < 10) {
                 nextPlayer.playerHand.add(deckInstance.deckArray.remove(0));
             }
             playerArray.add(nextPlayer);
@@ -102,7 +104,15 @@ public class Main {
                     if (playerArray.get(playerIndex).playerHand.get(cardHandIndex).title.equals("The Geologist")) {
                         cardCompareType = chooseType(cardCompareType).toLowerCase();
                         trumpPlayerReset();
-                    } else {
+                    }else if (playerArray.get(playerIndex).playerHand.get(cardHandIndex).title.equals("The Geophysicist") && playerArray.get(playerIndex).playerHand.toString().contains("Magnetite")){
+                        System.out.println("You have played The Geophysicist while you have Magnetite in you hand! \n Congratulations you have won the hand");
+                        for (Card j:playerArray.get(playerIndex).playerHand){
+                            cardPile.add(playerArray.get(playerIndex).playerHand.get(0));
+                        }
+                        winnerPile.add(playerArray.get(playerIndex));
+                        playerArray.remove(playerIndex);
+                        trumpPlayerReset();
+                    }else {
                         cardCompareType = playerArray.get(playerIndex).playerHand.get(cardHandIndex).getDescription().toLowerCase();
                         trumpPlayerReset();
                     }
@@ -133,7 +143,15 @@ public class Main {
                     if (playerArray.get(playerIndex).playerHand.get(cardHandIndex).title.equals("The Geologist")) {
                         cardCompareType = chooseType(cardCompareType).toLowerCase();
                         trumpPlayerReset();
-                    } else {
+                    }else if (playerArray.get(playerIndex).playerHand.get(cardHandIndex).title.equals("The Geophysicist") && playerArray.get(playerIndex).playerHand.toString().contains("Magnetite")){
+                        System.out.println("You have played The Geophysicist while you have Magnetite in you hand! \n Congratulations you have won the hand");
+                        for (Card j:playerArray.get(playerIndex).playerHand){
+                            cardPile.add(playerArray.get(playerIndex).playerHand.get(0));
+                        }
+                        winnerPile.add(playerArray.get(playerIndex));
+                        playerArray.remove(playerIndex);
+                        trumpPlayerReset();
+                    }else {
                         cardCompareType = playerArray.get(playerIndex).playerHand.get(cardHandIndex).getDescription().toLowerCase();
                         trumpPlayerReset();
                     }
@@ -163,7 +181,15 @@ public class Main {
                     if (playerArray.get(playerIndex).playerHand.get(cardHandIndex).title.equals("The Geologist")) {
                         cardCompareType = chooseType(cardCompareType).toLowerCase();
                         trumpPlayerReset();
-                    } else {
+                    }else if (playerArray.get(playerIndex).playerHand.get(cardHandIndex).title.equals("The Geophysicist") && playerArray.get(playerIndex).playerHand.toString().contains("Magnetite")){
+                        System.out.println("You have played The Geophysicist while you have Magnetite in you hand! \n Congratulations you have won the hand");
+                        for (Card j:playerArray.get(playerIndex).playerHand){
+                            cardPile.add(playerArray.get(playerIndex).playerHand.get(0));
+                        }
+                        winnerPile.add(playerArray.get(playerIndex));
+                        playerArray.remove(playerIndex);
+                        trumpPlayerReset();
+                    }else {
                         cardCompareType = playerArray.get(playerIndex).playerHand.get(cardHandIndex).getDescription().toLowerCase();
                         trumpPlayerReset();
                     }
@@ -197,7 +223,15 @@ public class Main {
                     if (playerArray.get(playerIndex).playerHand.get(cardHandIndex).title.equals("The Geologist")) {
                         cardCompareType = chooseType(cardCompareType).toLowerCase();
                         trumpPlayerReset();
-                    } else {
+                    }else if (playerArray.get(playerIndex).playerHand.get(cardHandIndex).title.equals("The Geophysicist") && playerArray.get(playerIndex).playerHand.toString().contains("Magnetite")){
+                        System.out.println("You have played The Geophysicist while you have Magnetite in you hand! \n Congratulations you have won the hand");
+                        for (Card j:playerArray.get(playerIndex).playerHand){
+                            cardPile.add(playerArray.get(playerIndex).playerHand.get(0));
+                        }
+                        winnerPile.add(playerArray.get(playerIndex));
+                        playerArray.remove(playerIndex);
+                        trumpPlayerReset();
+                    }else {
                         cardCompareType = playerArray.get(playerIndex).playerHand.get(cardHandIndex).getDescription().toLowerCase();
                         trumpPlayerReset();
                     }
@@ -227,7 +261,15 @@ public class Main {
                     if (playerArray.get(playerIndex).playerHand.get(cardHandIndex).title.equals("The Geologist")) {
                         cardCompareType = chooseType(cardCompareType).toLowerCase();
                         trumpPlayerReset();
-                    } else {
+                    }else if (playerArray.get(playerIndex).playerHand.get(cardHandIndex).title.equals("The Geophysicist") && playerArray.get(playerIndex).playerHand.toString().contains("Magnetite")){
+                        System.out.println("You have played The Geophysicist while you have Magnetite in you hand! \n Congratulations you have won the hand");
+                        for (Card j:playerArray.get(playerIndex).playerHand){
+                            cardPile.add(playerArray.get(playerIndex).playerHand.get(0));
+                        }
+                        winnerPile.add(playerArray.get(playerIndex));
+                        playerArray.remove(playerIndex);
+                        trumpPlayerReset();
+                    }else {
                         cardCompareType = playerArray.get(playerIndex).playerHand.get(cardHandIndex).getDescription().toLowerCase();
                         trumpPlayerReset();
                     }
@@ -263,6 +305,7 @@ public class Main {
             Data.outCounter = 0;
         }
     }
+
 
     static void trumpPlayerReset() {
         System.out.println("A trump card has been played everyone is back in the round now");
