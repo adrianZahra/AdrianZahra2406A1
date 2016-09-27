@@ -6,8 +6,8 @@ import com.dd.plist.NSString;
  */
 
 
-public abstract class Card {
-    public String title;
+abstract class Card {
+    String title;
 
     Card() {
 

@@ -12,10 +12,10 @@ import java.util.Scanner;
  * Created by pccc on 8/27/2016.
  */
 public class Main {
-    static Deck deckInstance;
-    static ArrayList<Player> playerArray;
-    static ArrayList<Card> cardPile;
-    static ArrayList<Player> winnerPile;
+    private static Deck deckInstance;
+    private static ArrayList<Player> playerArray;
+    private static ArrayList<Card> cardPile;
+    private static ArrayList<Player> winnerPile;
 
     public static void main(String[] args) throws PropertyListFormatException, ParserConfigurationException, SAXException, ParseException, IOException {
         deckInstance = new Deck();
@@ -25,7 +25,6 @@ public class Main {
 
         Scanner input = new Scanner(System.in);
         int playerAmount = 0;
-        String roundType = " ";
 
 
         do {
@@ -41,16 +40,15 @@ public class Main {
             System.out.println("Enter a name for player: " + x);
             playerName = input.nextLine();
             Player nextPlayer = new Player(playerName);
-            while (nextPlayer.playerHand.size() < 8) {
+            while (nextPlayer.playerHand.size() < 2) {
                 nextPlayer.playerHand.add(deckInstance.deckArray.remove(0));
             }
             playerArray.add(nextPlayer);
         }
 
-        roundType = chooseType(roundType);
+        Data.roundType = chooseType(Data.roundType);
         String gameOption;
-        System.out.println("\n" + "The type for the round is --> " + roundType + "\n");
-        int outCounter = 0;
+        System.out.println("\n" + "The type for the round is --> " + Data.roundType + "\n");
         while (playerArray.size() > 1) {
             for (int i = 0; i < playerArray.size(); i++) {
                 if (playerArray.get(i).inOut) {
@@ -59,9 +57,9 @@ public class Main {
                         gameOption = input.nextLine().toLowerCase();
                         if (gameOption.equals("play")) {
                             showCardPile();
-                            System.out.println("The type for the round is: " + roundType + "\n");
+                            System.out.println("The type for the round is: " + Data.roundType + "\n");
                             System.out.println(playerArray.get(i).getPlayer());
-                            roundType = cardCompare(playerArray.get(i), roundType, i);
+                            Data.roundType = cardCompare(playerArray.get(i), Data.roundType, i);
                             if (playerArray.get(i).playerHand.size() == 0) {
                                 System.out.println("Congratulations " + playerArray.get(i).getPlayer() + " for emptying your hand \n");
                                 winnerPile.add(playerArray.get(i));
@@ -72,11 +70,8 @@ public class Main {
                             drawCard(playerArray.get(i));
                             System.out.println(playerArray.get(i).getPlayer());
                             playerArray.get(i).inOut = Boolean.FALSE;
-                            outCounter++;
-                            outCounter = newRound(playerAmount, outCounter);
-                            if (outCounter == 0) {
-                                roundType = chooseType(roundType);
-                            }
+                            Data.outCounter++;
+                            newRound(playerAmount);
 
                         }
                     } while (!gameOption.equals("play") && !gameOption.equals("pass"));
@@ -100,14 +95,17 @@ public class Main {
 
         switch (cardCompareType) {
             case "hardness":
-                //handCardValue = getHardness(playerArray.get(playerIndex).playerHand.get(cardHandIndex).getCleavage());
                 try {
                     handCardValue = getHardnessVal(playerArray.get(playerIndex).playerHand.get(cardHandIndex).getHardness());
-                } catch (NullPointerException a){
-                    System.out.println("you have played" + playerArray.get(playerIndex).playerHand.get(cardHandIndex).title);
-                    if (playerArray.get(playerIndex).playerHand.get(cardHandIndex).title.equals("The Geologist")){
+                } catch (NullPointerException a) {
+                    System.out.println("you have played " + playerArray.get(playerIndex).playerHand.get(cardHandIndex).title);
+                    if (playerArray.get(playerIndex).playerHand.get(cardHandIndex).title.equals("The Geologist")) {
                         cardCompareType = chooseType(cardCompareType).toLowerCase();
-                    }else cardCompareType = playerArray.get(playerIndex).playerHand.get(cardHandIndex).getDescription().toLowerCase();
+                        trumpPlayerReset();
+                    } else {
+                        cardCompareType = playerArray.get(playerIndex).playerHand.get(cardHandIndex).getDescription().toLowerCase();
+                        trumpPlayerReset();
+                    }
                 }
 
                 try {
@@ -130,11 +128,15 @@ public class Main {
 
                 try {
                     handCardValue = getSpecificGravityVal(playerArray.get(playerIndex).playerHand.get(cardHandIndex).getSpecific_gravity());
-                } catch (NullPointerException a){
+                } catch (NullPointerException a) {
                     System.out.println("you have played" + playerArray.get(playerIndex).playerHand.get(cardHandIndex).title);
-                    if (playerArray.get(playerIndex).playerHand.get(cardHandIndex).title.equals("The Geologist")){
+                    if (playerArray.get(playerIndex).playerHand.get(cardHandIndex).title.equals("The Geologist")) {
                         cardCompareType = chooseType(cardCompareType).toLowerCase();
-                    }else cardCompareType = playerArray.get(playerIndex).playerHand.get(cardHandIndex).getDescription().toLowerCase();
+                        trumpPlayerReset();
+                    } else {
+                        cardCompareType = playerArray.get(playerIndex).playerHand.get(cardHandIndex).getDescription().toLowerCase();
+                        trumpPlayerReset();
+                    }
                 }
 
                 try {
@@ -156,11 +158,15 @@ public class Main {
             case "cleavage":
                 try {
                     handCardValue = getCleavageVal(playerArray.get(playerIndex).playerHand.get(cardHandIndex).getCleavage());
-                } catch (NullPointerException a){
+                } catch (NullPointerException a) {
                     System.out.println("you have played" + playerArray.get(playerIndex).playerHand.get(cardHandIndex).title);
-                    if (playerArray.get(playerIndex).playerHand.get(cardHandIndex).title.equals("The Geologist")){
+                    if (playerArray.get(playerIndex).playerHand.get(cardHandIndex).title.equals("The Geologist")) {
                         cardCompareType = chooseType(cardCompareType).toLowerCase();
-                    }else cardCompareType = playerArray.get(playerIndex).playerHand.get(cardHandIndex).getDescription().toLowerCase();
+                        trumpPlayerReset();
+                    } else {
+                        cardCompareType = playerArray.get(playerIndex).playerHand.get(cardHandIndex).getDescription().toLowerCase();
+                        trumpPlayerReset();
+                    }
                 }
 
                 try {
@@ -186,11 +192,15 @@ public class Main {
             case "crustal abundance":
                 try {
                     handCardValue = getCrustalAbundanceVal(playerArray.get(playerIndex).playerHand.get(cardHandIndex).getCrustal_abundance());
-                } catch (NullPointerException a){
+                } catch (NullPointerException a) {
                     System.out.println("you have played" + playerArray.get(playerIndex).playerHand.get(cardHandIndex).title);
-                    if (playerArray.get(playerIndex).playerHand.get(cardHandIndex).title.equals("The Geologist")){
+                    if (playerArray.get(playerIndex).playerHand.get(cardHandIndex).title.equals("The Geologist")) {
                         cardCompareType = chooseType(cardCompareType).toLowerCase();
-                    }else cardCompareType = playerArray.get(playerIndex).playerHand.get(cardHandIndex).getDescription().toLowerCase();
+                        trumpPlayerReset();
+                    } else {
+                        cardCompareType = playerArray.get(playerIndex).playerHand.get(cardHandIndex).getDescription().toLowerCase();
+                        trumpPlayerReset();
+                    }
                 }
 
                 try {
@@ -212,11 +222,15 @@ public class Main {
             default:
                 try {
                     handCardValue = getEconomicValueVal(playerArray.get(playerIndex).playerHand.get(cardHandIndex).getEconomic_value());
-                } catch (NullPointerException a){
+                } catch (NullPointerException a) {
                     System.out.println("you have played" + playerArray.get(playerIndex).playerHand.get(cardHandIndex).title);
-                    if (playerArray.get(playerIndex).playerHand.get(cardHandIndex).title.equals("The Geologist")){
+                    if (playerArray.get(playerIndex).playerHand.get(cardHandIndex).title.equals("The Geologist")) {
                         cardCompareType = chooseType(cardCompareType).toLowerCase();
-                    }else cardCompareType = playerArray.get(playerIndex).playerHand.get(cardHandIndex).getDescription().toLowerCase();
+                        trumpPlayerReset();
+                    } else {
+                        cardCompareType = playerArray.get(playerIndex).playerHand.get(cardHandIndex).getDescription().toLowerCase();
+                        trumpPlayerReset();
+                    }
                 }
 
                 try {
@@ -238,44 +252,36 @@ public class Main {
 
     }
 
-    static int newRound(int playerAmountPlace, int outCounterPlace) {
+    static void newRound(int playerAmountPlace) {
         playerAmountPlace--;
-        if (outCounterPlace == playerAmountPlace) {
+        if (Data.outCounter == playerAmountPlace) {
             System.out.println("\n" + "-----------------------------------\n The current round has ended \n the new round will start now \n ----------------------------------- \n");
             for (int i = 0; i < playerArray.size(); i++) {
                 playerArray.get(i).inOut = Boolean.TRUE;
             }
-            outCounterPlace = 0;
-
-
+            Data.roundType = chooseType(Data.roundType);
+            Data.outCounter = 0;
         }
-        return outCounterPlace;
+    }
+
+    static void trumpPlayerReset() {
+        System.out.println("A trump card has been played everyone is back in the round now");
+        for (int i = 0; i < playerArray.size(); i++) {
+            playerArray.get(i).inOut = Boolean.TRUE;
+        }
+        Data.outCounter = 0;
     }
 
     static String chooseType(String typeHolder) {
         Scanner input = new Scanner(System.in);
         do {
-            System.out.println("\n" + "Enter the type for the round --> \n hardness \n specific gravity \n cleavage \n crustal abundance \n economic value \n");
+            System.out.println("\n" + "Enter the type you wish to set --> \n hardness \n specific gravity \n cleavage \n crustal abundance \n economic value \n");
             typeHolder = input.nextLine();
         }
         while (!typeHolder.equals("hardness") && !typeHolder.equals("specific gravity") && !typeHolder.equals("cleavage") && !typeHolder.equals("crustal abundance") && !typeHolder.equals("economic value"));
 
         return typeHolder;
     }
-
-
-    /*
-    static String getTrumpEfect(String trumpName){
-        switch (trumpName){
-            case "The Geophysicist":
-                trumpName = chooseType(trumpName);
-                return trumpName;
-
-
-
-        }
-    }
-    */
 
     static int getSpecificGravityVal(String gravValue) {
         int gravValueInt = 0;
