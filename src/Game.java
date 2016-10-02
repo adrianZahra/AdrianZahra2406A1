@@ -30,7 +30,7 @@ public class Game {
             case "hardness":
                 try {
                     handCardValue = getHardnessVal(playerArray.get(playerIndex).playerHand.get(cardHandIndex).getHardness());
-                } catch (NullPointerException a) {
+                } catch (NullPointerException e) {
                     System.out.println("you have played " + playerArray.get(playerIndex).playerHand.get(cardHandIndex).title);
                     if (playerArray.get(playerIndex).playerHand.get(cardHandIndex).title.equals("The Geologist")) {
                         cardCompareType = chooseType(cardCompareType).toLowerCase();
@@ -70,7 +70,7 @@ public class Game {
 
                 try {
                     handCardValue = getSpecificGravityVal(playerArray.get(playerIndex).playerHand.get(cardHandIndex).getSpecific_gravity());
-                } catch (NullPointerException a) {
+                } catch (NullPointerException e) {
                     System.out.println("you have played" + playerArray.get(playerIndex).playerHand.get(cardHandIndex).title);
                     if (playerArray.get(playerIndex).playerHand.get(cardHandIndex).title.equals("The Geologist")) {
                         cardCompareType = chooseType(cardCompareType).toLowerCase();
@@ -109,7 +109,7 @@ public class Game {
             case "cleavage":
                 try {
                     handCardValue = getCleavageVal(playerArray.get(playerIndex).playerHand.get(cardHandIndex).getCleavage());
-                } catch (NullPointerException a) {
+                } catch (NullPointerException e) {
                     System.out.println("you have played" + playerArray.get(playerIndex).playerHand.get(cardHandIndex).title);
                     if (playerArray.get(playerIndex).playerHand.get(cardHandIndex).title.equals("The Geologist")) {
                         cardCompareType = chooseType(cardCompareType).toLowerCase();
@@ -152,7 +152,7 @@ public class Game {
             case "crustal abundance":
                 try {
                     handCardValue = getCrustalAbundanceVal(playerArray.get(playerIndex).playerHand.get(cardHandIndex).getCrustal_abundance());
-                } catch (NullPointerException a) {
+                } catch (NullPointerException e) {
                     System.out.println("you have played" + playerArray.get(playerIndex).playerHand.get(cardHandIndex).title);
                     if (playerArray.get(playerIndex).playerHand.get(cardHandIndex).title.equals("The Geologist")) {
                         cardCompareType = chooseType(cardCompareType).toLowerCase();
@@ -191,7 +191,7 @@ public class Game {
             default:
                 try {
                     handCardValue = getEconomicValueVal(playerArray.get(playerIndex).playerHand.get(cardHandIndex).getEconomic_value());
-                } catch (NullPointerException a) {
+                } catch (NullPointerException e) {
                     System.out.println("you have played" + playerArray.get(playerIndex).playerHand.get(cardHandIndex).title);
                     if (playerArray.get(playerIndex).playerHand.get(cardHandIndex).title.equals("The Geologist")) {
                         cardCompareType = chooseType(cardCompareType).toLowerCase();

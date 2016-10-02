@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 /**
@@ -36,15 +37,21 @@ public class Main {
         Scanner input = new Scanner(System.in);
         int playerAmount = 0;
 
-
         do {
             System.out.println("Enter the number of players here: ");
-            playerAmount = input.nextInt();
-        } while (playerAmount > 5 || playerAmount < 3);
-        input.nextLine();
+            try {
+                playerAmount = input.nextInt();
+                if (playerAmount > 5 || playerAmount < 3){
+                    System.out.println("That player amount is not acceptable");
+                }
+                input.nextLine();
+            }catch (Exception e){
+                System.out.println("You must enter a number only!");
+                input.nextLine();
+            }
+        }while (playerAmount > 5 || playerAmount < 3);
 
         Collections.shuffle(Game.deckInstance.deckArray);
-
 
         for (int x = 0; x < playerAmount; x = x + 1) {
             String playerName;
