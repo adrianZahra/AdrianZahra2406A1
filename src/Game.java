@@ -7,10 +7,15 @@ import java.util.Scanner;
 public class Game {
     static String roundType;
     static int outCounter;
+    static Integer handCardValue;
+    static Integer pileCardValue;
 
     Game(){
         this.roundType = " ";
         this.outCounter = 0;
+        this.handCardValue = null;
+        this.pileCardValue = null;
+
     }
 
     static Deck deckInstance;
@@ -20,9 +25,7 @@ public class Game {
 
     static String cardCompare(Player playerPlace, String cardCompareType, int playerIndex) {
         Scanner input = new Scanner(System.in);
-        Integer handCardValue = -1;
-        Integer pileCardValue;
-        int cardHandIndex = 0;
+        int cardHandIndex = -1;
 
         do {
             System.out.println("type the number of the card you wish to place --> ");
@@ -47,7 +50,8 @@ public class Game {
                     if (playerArray.get(playerIndex).playerHand.get(cardHandIndex).title.equals("The Geologist")) {
                         cardCompareType = chooseType(cardCompareType).toLowerCase();
                         trumpPlayerReset();
-                        break;
+                        handCardValue = 10;
+
                     } else if (playerArray.get(playerIndex).playerHand.get(cardHandIndex).title.equals("The Geophysicist") && playerArray.get(playerIndex).playerHand.toString().contains("Magnetite")) {
                         System.out.println("You have Magnetite in you hand! ");
                         while (playerArray.get(playerIndex).playerHand.size() != 0){
@@ -58,7 +62,8 @@ public class Game {
                     } else {
                         cardCompareType = playerArray.get(playerIndex).playerHand.get(cardHandIndex).getDescription().toLowerCase();
                         trumpPlayerReset();
-                        break;
+                        handCardValue = 10;
+
                     }
                 }
 
@@ -74,7 +79,14 @@ public class Game {
                     System.out.println("the card has a higher value");
                     cardPile.add(playerPlace.playerHand.get(cardHandIndex));
                     System.out.println(playerPlace.playerHand.remove(cardHandIndex) + " was removed from hand");
-                } else System.out.println("the cards value was not higher! Try again");
+                }else if (handCardValue.equals(pileCardValue)){
+                    System.out.println("both cards equal try again");
+                }else if (handCardValue == 10){
+                    cardPile.add(playerPlace.playerHand.get(cardHandIndex));
+                    System.out.println(playerPlace.playerHand.remove(cardHandIndex) + " was removed from hand");
+                }else if (handCardValue == null){
+                    System.out.println(" ");
+                }else System.out.println("the cards value was not higher! Try again");
                 break;
 
 
@@ -87,7 +99,8 @@ public class Game {
                     if (playerArray.get(playerIndex).playerHand.get(cardHandIndex).title.equals("The Geologist")) {
                         cardCompareType = chooseType(cardCompareType).toLowerCase();
                         trumpPlayerReset();
-                        break;
+                        handCardValue = 10;
+
                     } else if (playerArray.get(playerIndex).playerHand.get(cardHandIndex).title.equals("The Geophysicist") && playerArray.get(playerIndex).playerHand.toString().contains("Magnetite")) {
                         System.out.println("You have Magnetite in you hand! ");
                         while (playerArray.get(playerIndex).playerHand.size() != 0){
@@ -98,7 +111,8 @@ public class Game {
                     } else {
                         cardCompareType = playerArray.get(playerIndex).playerHand.get(cardHandIndex).getDescription().toLowerCase();
                         trumpPlayerReset();
-                        break;
+                        handCardValue = 10;
+
                     }
                 }
 
@@ -114,7 +128,12 @@ public class Game {
                     System.out.println("the card has a higher value");
                     cardPile.add(playerPlace.playerHand.get(cardHandIndex));
                     System.out.println(playerPlace.playerHand.remove(cardHandIndex) + " was removed from hand");
-                } else System.out.println("the cards value was not higher! Try again");
+                }else if (handCardValue == 10){
+                    cardPile.add(playerPlace.playerHand.get(cardHandIndex));
+                    System.out.println(playerPlace.playerHand.remove(cardHandIndex) + " was removed from hand");
+                }else if (handCardValue == null){
+                    System.out.println(" ");
+                }else System.out.println("the cards value was not higher! Try again");
                 break;
 
 
@@ -126,7 +145,8 @@ public class Game {
                     if (playerArray.get(playerIndex).playerHand.get(cardHandIndex).title.equals("The Geologist")) {
                         cardCompareType = chooseType(cardCompareType).toLowerCase();
                         trumpPlayerReset();
-                        break;
+                        handCardValue = 10;
+
                     } else if (playerArray.get(playerIndex).playerHand.get(cardHandIndex).title.equals("The Geophysicist") && playerArray.get(playerIndex).playerHand.toString().contains("Magnetite")) {
                         System.out.println("You have Magnetite in you hand! ");
                         while (playerArray.get(playerIndex).playerHand.size() != 0){
@@ -137,7 +157,8 @@ public class Game {
                     } else {
                         cardCompareType = playerArray.get(playerIndex).playerHand.get(cardHandIndex).getDescription().toLowerCase();
                         trumpPlayerReset();
-                        break;
+                        handCardValue = 10;
+
                     }
                 }
 
@@ -153,11 +174,12 @@ public class Game {
                     System.out.println("the card has a higher value");
                     cardPile.add(playerPlace.playerHand.get(cardHandIndex));
                     System.out.println(playerPlace.playerHand.remove(cardHandIndex) + " was removed from hand");
-                } else {
-                    System.out.println("the cards value was not higher! Try again");
-
-                }
-
+                }else if (handCardValue == 10){
+                    cardPile.add(playerPlace.playerHand.get(cardHandIndex));
+                    System.out.println(playerPlace.playerHand.remove(cardHandIndex) + " was removed from hand");
+                }else if (handCardValue == null){
+                    System.out.println(" ");
+                }else System.out.println("the cards value was not higher! Try again");
                 break;
 
 
@@ -169,7 +191,8 @@ public class Game {
                     if (playerArray.get(playerIndex).playerHand.get(cardHandIndex).title.equals("The Geologist")) {
                         cardCompareType = chooseType(cardCompareType).toLowerCase();
                         trumpPlayerReset();
-                        break;
+                        handCardValue = 10;
+
                     } else if (playerArray.get(playerIndex).playerHand.get(cardHandIndex).title.equals("The Geophysicist") && playerArray.get(playerIndex).playerHand.toString().contains("Magnetite")) {
                         System.out.println("You have Magnetite in you hand! ");
                         while (playerArray.get(playerIndex).playerHand.size() != 0){
@@ -180,7 +203,8 @@ public class Game {
                     } else {
                         cardCompareType = playerArray.get(playerIndex).playerHand.get(cardHandIndex).getDescription().toLowerCase();
                         trumpPlayerReset();
-                        break;
+                        handCardValue = 10;
+
                     }
                 }
 
@@ -196,7 +220,12 @@ public class Game {
                     System.out.println("the card has a higher value");
                     cardPile.add(playerPlace.playerHand.get(cardHandIndex));
                     System.out.println(playerPlace.playerHand.remove(cardHandIndex) + " was removed from hand");
-                } else System.out.println("the cards value was not higher! Try again");
+                }else if (handCardValue == 10){
+                    cardPile.add(playerPlace.playerHand.get(cardHandIndex));
+                    System.out.println(playerPlace.playerHand.remove(cardHandIndex) + " was removed from hand");
+                }else if (handCardValue == null){
+                    System.out.println(" ");
+                }else System.out.println("the cards value was not higher! Try again");
                 break;
 
 
@@ -208,7 +237,8 @@ public class Game {
                     if (playerArray.get(playerIndex).playerHand.get(cardHandIndex).title.equals("The Geologist")) {
                         cardCompareType = chooseType(cardCompareType).toLowerCase();
                         trumpPlayerReset();
-                        break;
+                        handCardValue = 10;
+
                     } else if (playerArray.get(playerIndex).playerHand.get(cardHandIndex).title.equals("The Geophysicist") && playerArray.get(playerIndex).playerHand.toString().contains("Magnetite")) {
                         System.out.println("You have Magnetite in you hand! ");
                         while (playerArray.get(playerIndex).playerHand.size() != 0){
@@ -219,7 +249,8 @@ public class Game {
                     } else {
                         cardCompareType = playerArray.get(playerIndex).playerHand.get(cardHandIndex).getDescription().toLowerCase();
                         trumpPlayerReset();
-                        break;
+                        handCardValue = 10;
+
                     }
                 }
 
@@ -235,7 +266,12 @@ public class Game {
                     System.out.println("the card has a higher value");
                     cardPile.add(playerPlace.playerHand.get(cardHandIndex));
                     System.out.println(playerPlace.playerHand.remove(cardHandIndex) + " was removed from hand");
-                } else System.out.println("the cards value was not higher! Try again");
+                }else if (handCardValue == 10){
+                    cardPile.add(playerPlace.playerHand.get(cardHandIndex));
+                    System.out.println(playerPlace.playerHand.remove(cardHandIndex) + " was removed from hand");
+                }else if (handCardValue == null){
+                    System.out.println(" ");
+                }else System.out.println("the cards value was not higher! Try again");
                 break;
         }
         return cardCompareType;

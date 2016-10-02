@@ -67,40 +67,48 @@ public class Main {
         }
 
         Game.roundType = Game.chooseType(Game.roundType);
-        String gameOption;
+        String gameOption = null;
         System.out.println("\n" + "The type for the round is --> " + Game.roundType + "\n");
         while (Game.playerArray.size() > 1) {
             for (int icounter = 0; icounter < Game.playerArray.size(); icounter++) {
                 if (Game.playerArray.get(icounter).inOut) {
                     do {
-                        System.out.println("\n" + "Enter an option for player: " + Game.playerArray.get(icounter).playerName + " \n play \n pass");
-                        gameOption = input.nextLine().toLowerCase();
-                        if (gameOption.equals("play")) {
-                            Game.showCardPile();
-                            System.out.println("The type for the round is: " + Game.roundType + "\n");
-                            System.out.println(Game.playerArray.get(icounter).getPlayer());
-                            int cardPlaceNum = 0;
-                            for (Card cardSpace : Game.playerArray.get(icounter).playerHand) {
-                                System.out.println("Card Index: " + cardPlaceNum + " " + cardSpace);
-                                cardPlaceNum++;
-                            }
-                            Game.roundType = Game.cardCompare(Game.playerArray.get(icounter), Game.roundType, icounter);
-                            if (Game.playerArray.get(icounter).playerHand.size() == 0) {
-                                System.out.println("Congratulations " + Game.playerArray.get(icounter).getPlayer() + " for emptying your hand \n");
-                                Game.winnerPile.add(Game.playerArray.get(icounter));
-                                Game.playerArray.remove(icounter);
-                                playerAmount--;
-                                Game.newRound(playerAmount);
-                                icounter--;
-                            }
+                        try {
+                            do {
+                                System.out.println("\n" + "Enter an option for player: " + Game.playerArray.get(icounter).playerName + " \n play \n pass");
+                                gameOption = input.nextLine().toLowerCase();
+                                if (gameOption.equals("play")) {
+                                    Game.showCardPile();
+                                    System.out.println("The type for the round is: " + Game.roundType + "\n");
+                                    System.out.println(Game.playerArray.get(icounter).getPlayer());
+                                    int cardPlaceNum = 0;
+                                    for (Card cardSpace : Game.playerArray.get(icounter).playerHand) {
+                                        System.out.println("Card Index: " + cardPlaceNum + " " + cardSpace);
+                                        cardPlaceNum++;
+                                    }
+                                    Game.roundType = Game.cardCompare(Game.playerArray.get(icounter), Game.roundType, icounter);
+                                    if (Game.playerArray.get(icounter).playerHand.size() == 0) {
+                                        System.out.println("Congratulations " + Game.playerArray.get(icounter).getPlayer() + " for emptying your hand \n");
+                                        Game.winnerPile.add(Game.playerArray.get(icounter));
+                                        Game.playerArray.remove(icounter);
+                                        playerAmount--;
+                                        Game.newRound(playerAmount);
+                                        icounter--;
+                                    }
 
-                        } else if (gameOption.equals("pass")) {
-                            Game.drawCard(Game.playerArray.get(icounter));
-                            System.out.println(Game.playerArray.get(icounter).getPlayer());
-                            Game.playerArray.get(icounter).inOut = Boolean.FALSE;
-                            Game.outCounter++;
-                            Game.newRound(playerAmount);
+                                } else if (gameOption.equals("pass")) {
+                                    Game.drawCard(Game.playerArray.get(icounter));
+                                    System.out.println(Game.playerArray.get(icounter).getPlayer());
+                                    Game.playerArray.get(icounter).inOut = Boolean.FALSE;
+                                    Game.outCounter++;
+                                    Game.newRound(playerAmount);
+                                    break;
 
+                                }
+                            }while (Game.handCardValue < Game.pileCardValue/* || Game.handCardValue != null*/);
+                            
+                        }catch (Exception e){
+                            System.out.println(" ");
                         }
                     } while (!gameOption.equals("play") && !gameOption.equals("pass"));
                 }
