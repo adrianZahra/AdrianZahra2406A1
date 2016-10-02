@@ -28,6 +28,6 @@ public class Player {
             hand += i + " ";
         }
 
-        return ("Player name: " + this.playerName + "\n " + hand);
+        return ("Player name: " + this.playerName/* + "\n " + hand*/);
     }
 }

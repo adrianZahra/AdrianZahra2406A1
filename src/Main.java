@@ -51,7 +51,7 @@ public class Main {
             System.out.println("Enter a name for player: " + x);
             playerName = input.nextLine();
             Player nextPlayer = new Player(playerName);
-            while (nextPlayer.playerHand.size() < 1) {
+            while (nextPlayer.playerHand.size() < 8) {
                 nextPlayer.playerHand.add(Game.deckInstance.deckArray.remove(0));
             }
             Game.playerArray.add(nextPlayer);
@@ -70,6 +70,12 @@ public class Main {
                             Game.showCardPile();
                             System.out.println("The type for the round is: " + Game.roundType + "\n");
                             System.out.println(Game.playerArray.get(i).getPlayer());
+                            int cardPlaceNum = 0;
+                            for (Card cardSpace: Game.playerArray.get(i).playerHand){
+                                System.out.println("Card Index: " + cardPlaceNum + " " + cardSpace);
+                                cardPlaceNum++;
+                            }
+
                             Game.roundType = Game.cardCompare(Game.playerArray.get(i), Game.roundType, i);
                             if (Game.playerArray.get(i).playerHand.size() == 0) {
                                 System.out.println("Congratulations " + Game.playerArray.get(i).getPlayer() + " for emptying your hand \n");
