@@ -13,8 +13,21 @@ import java.util.Scanner;
  */
 public class Main {
 
+    public static void main(String[] args) throws ParserConfigurationException, ParseException, SAXException, PropertyListFormatException, IOException {
+        Scanner startInput = new Scanner(System.in);
+        String startChoice = " ";
+        do {
+            System.out.println("Please enter a menu choice \n Play \n Exit");
+            startChoice = startInput.nextLine().toLowerCase();
+            if (startChoice.equals("play")) {
+                gameFlow();
+            } else if (startChoice.equals("exit")) {
+                System.out.println("Goodbye");
+            }
+        } while (!startChoice.equals("play") && !startChoice.equals("exit"));
+    }
 
-    public static void main(String[] args) throws PropertyListFormatException, ParserConfigurationException, SAXException, ParseException, IOException {
+    static void gameFlow() throws PropertyListFormatException, ParserConfigurationException, SAXException, ParseException, IOException {
         Game.deckInstance = new Deck();
         Game.playerArray = new ArrayList();
         Game.cardPile = new ArrayList();
@@ -38,7 +51,7 @@ public class Main {
             System.out.println("Enter a name for player: " + x);
             playerName = input.nextLine();
             Player nextPlayer = new Player(playerName);
-            while (nextPlayer.playerHand.size() < 2) {
+            while (nextPlayer.playerHand.size() < 1) {
                 nextPlayer.playerHand.add(Game.deckInstance.deckArray.remove(0));
             }
             Game.playerArray.add(nextPlayer);
@@ -78,8 +91,10 @@ public class Main {
             }
         }
         System.out.println("\n" + "The game has ended Congratulations winners");
+        int winnerPlace = 1;
         for (Player winner : Game.winnerPile) {
-            System.out.println(winner.getPlayer());
+            System.out.println(winnerPlace + " " + winner.getPlayer());
+            winnerPlace++;
         }
     }
 
