@@ -51,6 +51,8 @@ public class Main {
             }
         } while (playerAmount > 5 || playerAmount < 3);
 
+        System.out.println("There will be " + playerAmount + "players in the game");
+
         Collections.shuffle(Game.deckInstance.deckArray);
 
         for (int x = 0; x < playerAmount; x = x + 1) {
@@ -58,7 +60,7 @@ public class Main {
             System.out.println("Enter a name for player: " + x);
             playerName = input.nextLine();
             Player nextPlayer = new Player(playerName);
-            while (nextPlayer.playerHand.size() < 1) {
+            while (nextPlayer.playerHand.size() < 8) {
                 nextPlayer.playerHand.add(Game.deckInstance.deckArray.remove(0));
             }
             Game.playerArray.add(nextPlayer);
@@ -88,7 +90,7 @@ public class Main {
                                 Game.winnerPile.add(Game.playerArray.get(icounter));
                                 Game.playerArray.remove(icounter);
                                 playerAmount--;
-                                Game.outCounter--;
+                                Game.newRound(playerAmount);
                                 icounter--;
                             }
 

@@ -19,12 +19,24 @@ public class Game {
     static ArrayList<Player> winnerPile;
 
     static String cardCompare(Player playerPlace, String cardCompareType, int playerIndex) {
+        Scanner input = new Scanner(System.in);
         Integer handCardValue = -1;
         Integer pileCardValue;
-        int cardHandIndex;
-        Scanner input = new Scanner(System.in);
-        System.out.println("type the number of the card you wish to place --> ");
-        cardHandIndex = input.nextInt();
+        int cardHandIndex = 0;
+
+        do {
+            System.out.println("type the number of the card you wish to place --> ");
+            try {
+                cardHandIndex = input.nextInt();
+                if (cardHandIndex > playerArray.get(playerIndex).playerHand.size() || cardHandIndex < 0){
+                    System.out.println("That index is not acceptable");
+                }
+                input.nextLine();
+            }catch (Exception e){
+                System.out.println("You must enter a number only!");
+                input.nextLine();
+            }
+        }while (cardHandIndex > playerArray.get(playerIndex).playerHand.size() || cardHandIndex < 0);
 
         switch (cardCompareType) {
             case "hardness":
