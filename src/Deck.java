@@ -13,6 +13,7 @@ import java.util.ArrayList;
 /**
  * Created by pccc on 8/27/2016.
  */
+//this class is where the DDPlist reader searchs the Plist file for the data so it can be stored as an object in an array
 public class Deck {
     public static ArrayList<Card> deckArray = new ArrayList();
 
@@ -32,6 +33,8 @@ public class Deck {
 
                 NSDictionary card0 = (NSDictionary) cardsArray.objectAtIndex(cardCounter); // index of the cards
 
+                //each of these searches for the key and assigns its value to a place
+                // in the object that is then stored in the arraylist deck
                 NSString value0 = (NSString) card0.objectForKey("title");
                 NSString value1 = (NSString) card0.objectForKey("chemistry");
                 NSString value2 = (NSString) card0.objectForKey("classification");

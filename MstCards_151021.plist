@@ -2461,24 +2461,24 @@
 
 			<key>subtitle</key> 
 			<string>Cleavage</string>
-		</dict>
+		</dict>		
 
 		<dict>
-			<key>fileName</key>
+			<key>fileName</key> 
 			<string>Slide59.jpg</string>
 
-			<key>imageName</key>
+			<key>imageName</key> 
 			<string>Slide59</string>
 
-			<key>card_type</key>
+			<key>card_type</key> 
 			<key>trump</key>
 
-			<key>title</key>
+			<key>title</key> 
 			<string>The Geophysicist</string>
 
-			<key>subtitle</key>
+			<key>subtitle</key> 
 			<string>Specific gravity</string>
-		</dict>
+		</dict>		
 
 		<dict>
 			<key>fileName</key> 

@@ -4,7 +4,7 @@ import com.dd.plist.NSString;
 /**
  * Created by pccc on 8/27/2016.
  */
-
+//this class is where the card classes are created and stored
 
 abstract class Card {
     String title;
@@ -60,8 +60,8 @@ abstract class MineralCard extends Card {
         this.classification = in_class2.toString();
         this.crystal_system = in_class3.toString();
         this.occurrence = in_class4;
-        this.hardness = in_class5.toString();
-        this.specific_gravity = in_class6.toString();
+        this.hardness = in_class5.toString().replaceAll("\\s+","");
+        this.specific_gravity = in_class6.toString().replaceAll("\\s+","");
         this.cleavage = in_class7.toString();
         this.crustal_abundance = in_class8.toString();
         this.economic_value = in_class9.toString();

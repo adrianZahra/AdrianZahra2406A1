@@ -9,11 +9,12 @@ import java.util.ArrayList;
 /**
  * Created by pccc on 9/6/2016.
  */
+//this class is where the player classes are created and their game helping variables are stored
 
 public class Player {
     String playerName;
-    ArrayList<Card> playerHand;
-    Boolean inOut;
+    ArrayList<Card> playerHand; //this paramater will be the players hand
+    Boolean inOut; //this paramater will tell the program if a player is in or out of the round
 
     Player(String in_playerName) {
         this.playerName = in_playerName;

@@ -12,8 +12,10 @@ import java.util.Scanner;
 /**
  * Created by pccc on 8/27/2016.
  */
+//this class is where the flow and execution of the game take place this will be replaced by a gui in the future
 public class Main {
 
+    //this is where the player can choose to either start the game or exit
     public static void main(String[] args) throws ParserConfigurationException, ParseException, SAXException, PropertyListFormatException, IOException {
         Scanner startInput = new Scanner(System.in);
         String startChoice = " ";
@@ -28,6 +30,7 @@ public class Main {
         } while (!startChoice.equals("play") && !startChoice.equals("exit"));
     }
 
+    //this method is where the game both sets itself up and follows its loops to play
     static void gameFlow() throws PropertyListFormatException, ParserConfigurationException, SAXException, ParseException, IOException {
         Game.deckInstance = new Deck();
         Game.playerArray = new ArrayList();
@@ -55,17 +58,20 @@ public class Main {
 
         Collections.shuffle(Game.deckInstance.deckArray);
 
+        //this part calls the constructor form the Player class
+        //its objects are then stored in the player array
         for (int x = 0; x < playerAmount; x = x + 1) {
             String playerName;
             System.out.println("\n---------------------------------------------------------------------------\nEnter a name for player: " + x);
             playerName = input.nextLine();
             Player nextPlayer = new Player(playerName);
-            while (nextPlayer.playerHand.size() < 10) {
+            while (nextPlayer.playerHand.size() < 8) {
                 nextPlayer.playerHand.add(Game.deckInstance.deckArray.remove(0));
             }
             Game.playerArray.add(nextPlayer);
         }
 
+        //this is the large set of loops that controlls the state of the game
         Game.roundType = Game.chooseType(Game.roundType);
         String gameOption = null;
         System.out.println("\n---------------------------------------------------------------------------\nThe type for the round is --> " + Game.roundType);
@@ -87,6 +93,8 @@ public class Main {
                                         cardPlaceNum++;
                                     }
                                     Game.roundType = Game.cardCompare(Game.playerArray.get(icounter), Game.roundType, icounter);
+                                    //if a player has 0 cards in their hand they will then be added to a winners array
+                                    //when there is all but 1 player left in the playerArray then the games winning condition will be met
                                     if (Game.playerArray.get(icounter).playerHand.size() == 0) {
                                         System.out.println("\n---------------------------------------------------------------------------\nCongratulations " + Game.playerArray.get(icounter).getPlayer() + " for emptying your hand \n");
                                         Game.winnerPile.add(Game.playerArray.get(icounter));
@@ -105,15 +113,16 @@ public class Main {
                                     break;
 
                                 }
-                            }while (Game.handCardValue < Game.pileCardValue/* || Game.handCardValue != null*/);
-                            
-                        }catch (Exception e){
+                            } while (Game.handCardValue < Game.pileCardValue/* || Game.handCardValue != null*/);
+
+                        } catch (Exception e) {
                             System.out.println(" ");
                         }
                     } while (!gameOption.equals("play") && !gameOption.equals("pass"));
                 }
             }
         }
+        //when the game is over all the winning players will be shown in order
         System.out.println("\n---------------------------------------------------------------------------\nThe game has ended Congratulations winners");
         int winnerPlace = 1;
         for (Player winner : Game.winnerPile) {
