@@ -18,12 +18,12 @@ public class Main {
         Scanner startInput = new Scanner(System.in);
         String startChoice = " ";
         do {
-            System.out.println("Please enter a menu choice \n Play \n Exit");
+            System.out.println("\n---------------------------------------------------------------------------\nPlease enter a menu choice \n Play \n Exit");
             startChoice = startInput.nextLine().toLowerCase();
             if (startChoice.equals("play")) {
                 gameFlow();
             } else if (startChoice.equals("exit")) {
-                System.out.println("Goodbye");
+                System.out.println("\n---------------------------------------------------------------------------\nGoodbye");
             }
         } while (!startChoice.equals("play") && !startChoice.equals("exit"));
     }
@@ -38,29 +38,29 @@ public class Main {
         int playerAmount = 0;
 
         do {
-            System.out.println("Enter the number of players here: ");
+            System.out.println("\n---------------------------------------------------------------------------\nEnter the number of players here: ");
             try {
                 playerAmount = input.nextInt();
                 if (playerAmount > 5 || playerAmount < 3) {
-                    System.out.println("That player amount is not acceptable");
+                    System.out.println("\n---------------------------------------------------------------------------\nThat player amount is not acceptable it must be between 3 & 5 inclusive");
                 }
                 input.nextLine();
             } catch (Exception e) {
-                System.out.println("You must enter a number only!");
+                System.out.println("\n---------------------------------------------------------------------------\nYou must enter a number only!");
                 input.nextLine();
             }
         } while (playerAmount > 5 || playerAmount < 3);
 
-        System.out.println("There will be " + playerAmount + "players in the game");
+        System.out.println("\n---------------------------------------------------------------------------\nThere will be " + playerAmount + " players in the game");
 
         Collections.shuffle(Game.deckInstance.deckArray);
 
         for (int x = 0; x < playerAmount; x = x + 1) {
             String playerName;
-            System.out.println("Enter a name for player: " + x);
+            System.out.println("\n---------------------------------------------------------------------------\nEnter a name for player: " + x);
             playerName = input.nextLine();
             Player nextPlayer = new Player(playerName);
-            while (nextPlayer.playerHand.size() < 8) {
+            while (nextPlayer.playerHand.size() < 10) {
                 nextPlayer.playerHand.add(Game.deckInstance.deckArray.remove(0));
             }
             Game.playerArray.add(nextPlayer);
@@ -68,18 +68,18 @@ public class Main {
 
         Game.roundType = Game.chooseType(Game.roundType);
         String gameOption = null;
-        System.out.println("\n" + "The type for the round is --> " + Game.roundType + "\n");
+        System.out.println("\n---------------------------------------------------------------------------\nThe type for the round is --> " + Game.roundType);
         while (Game.playerArray.size() > 1) {
             for (int icounter = 0; icounter < Game.playerArray.size(); icounter++) {
                 if (Game.playerArray.get(icounter).inOut) {
                     do {
                         try {
                             do {
-                                System.out.println("\n" + "Enter an option for player: " + Game.playerArray.get(icounter).playerName + " \n play \n pass");
+                                System.out.println("\n---------------------------------------------------------------------------\nEnter an option for player: " + Game.playerArray.get(icounter).playerName + " \n play \n pass");
                                 gameOption = input.nextLine().toLowerCase();
                                 if (gameOption.equals("play")) {
                                     Game.showCardPile();
-                                    System.out.println("The type for the round is: " + Game.roundType + "\n");
+                                    System.out.println("\n---------------------------------------------------------------------------\nThe type for the round is: " + Game.roundType + "\n");
                                     System.out.println(Game.playerArray.get(icounter).getPlayer());
                                     int cardPlaceNum = 0;
                                     for (Card cardSpace : Game.playerArray.get(icounter).playerHand) {
@@ -88,7 +88,7 @@ public class Main {
                                     }
                                     Game.roundType = Game.cardCompare(Game.playerArray.get(icounter), Game.roundType, icounter);
                                     if (Game.playerArray.get(icounter).playerHand.size() == 0) {
-                                        System.out.println("Congratulations " + Game.playerArray.get(icounter).getPlayer() + " for emptying your hand \n");
+                                        System.out.println("\n---------------------------------------------------------------------------\nCongratulations " + Game.playerArray.get(icounter).getPlayer() + " for emptying your hand \n");
                                         Game.winnerPile.add(Game.playerArray.get(icounter));
                                         Game.playerArray.remove(icounter);
                                         playerAmount--;
@@ -114,7 +114,7 @@ public class Main {
                 }
             }
         }
-        System.out.println("\n" + "The game has ended Congratulations winners");
+        System.out.println("\n---------------------------------------------------------------------------\nThe game has ended Congratulations winners");
         int winnerPlace = 1;
         for (Player winner : Game.winnerPile) {
             System.out.println(winnerPlace + " " + winner.getPlayer());
